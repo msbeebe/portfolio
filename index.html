@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madeline Beebe</title>
@@ -106,59 +105,71 @@
         <span>🪙</span> <span id="coin-count" class="glow-pistachio">0</span>
     </div>
 
-    <div class="relative w-full max-w-5xl mx-auto mt-16 md:mt-12 mb-8">
-        
-        <div id="persona-box" class="absolute -top-16 md:-top-12 -left-2 md:-left-8 z-50 bg-medNavyTeal/95 border-4 border-medPistachio p-4 rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] w-72 md:w-80 transition-all duration-300 opacity-0 scale-95 pointer-events-none">
-            <h1 class="text-xl md:text-2xl text-medPistachio glow-pistachio mb-2 border-b border-medIce/30 pb-2">Magister Madeline Beebe</h1>
-            <div class="grid grid-cols-2 gap-2 text-sm text-medCream">
-                <p><span class="text-medIce">Class:</span> Scholar</p>
-                <p><span class="text-medIce">Rank:</span> Magister</p>
-                <p class="col-span-2"><span class="text-medIce">Materia:</span> Cosmonautics & Analytics</p>
-            </div>
-        </div>
+    <!-- CENTERED NAME (Above Diorama) -->
+    <div class="w-full text-center mt-6 md:mt-2 mb-4">
+        <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
+    </div>
 
+    <!-- MAIN DIORAMA WRAPPER -->
+    <div class="relative w-full max-w-5xl mx-auto mb-8">
+        
         <div class="relative w-full aspect-square md:aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
             
             <div class="room-wall"></div>
             <div class="room-floor"></div>
 
+            <!-- STAGNANT PERSONA BOX (Bottom Left) -->
+            <div id="persona-box" class="absolute bottom-6 left-6 z-50 bg-medNavyTeal/95 border-4 border-medPistachio p-4 rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] w-64 md:w-80 cursor-default">
+                <h1 class="text-lg md:text-xl text-medPistachio glow-pistachio mb-2 border-b border-medIce/30 pb-2">Magister Madeline Beebe</h1>
+                <div class="grid grid-cols-2 gap-2 text-xs md:text-sm text-medCream">
+                    <p><span class="text-medIce">Class:</span> Scholar</p>
+                    <p><span class="text-medIce">Rank:</span> Magister</p>
+                    <p class="col-span-2"><span class="text-medIce">Materia:</span> Cosmonautics & Analytics</p>
+                </div>
+            </div>
+
             <!-- RIGHT QUADRANT -->
-            <img src="assets/Stone_Arch_Window.png" alt="Window" class="room-decor w-40 md:w-56 pixelated z-10 opacity-90" style="top: 25%; left: 78%; transform: translateX(-50%);">
-            <a href="skills.html" class="room-object" style="bottom: 12%; right: 5%; z-index: 20;">
+            <img src="assets/New_Window.png" alt="Window" class="room-decor w-40 md:w-56 pixelated z-10 opacity-90" style="top: 25%; left: 68%; transform: translateX(-50%);">
+            
+            <a href="skills.html" class="room-object" style="bottom: 12%; right: 2%; z-index: 20;">
                 <img src="assets/Bookshelf.png" alt="Bookshelf" class="w-40 md:w-56 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
                 <span>Skill Tree</span>
             </a>
-            <a href="campaign.html" class="room-object" style="bottom: 5%; right: 28%; z-index: 45;">
-                <img src="assets/Spellbook_Pedestal.png" alt="Spellbook" class="w-24 md:w-36 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]" style="transform: rotate(30deg);">
+            
+            <a href="campaign.html" class="room-object" style="bottom: 5%; right: 18%; z-index: 45;">
+                <img src="assets/Spellbook_Pedestal.png" alt="Spellbook" class="w-24 md:w-36 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
                 <span>Campaign Log</span>
             </a>
 
             <!-- LEFT QUADRANT -->
-            <a href="map.html" class="room-object" style="top: 15%; left: 10%; z-index: 10;">
+            <a href="map.html" class="room-object" style="top: 25%; left: 6%; z-index: 10;">
                 <img src="assets/Wall_Map.png" alt="Map" class="w-24 md:w-36 pixelated drop-shadow-xl">
                 <span>Overworld Map</span>
             </a>
-            <a href="sidequests.html" class="room-object" style="top: 15%; left: 24%; z-index: 10;">
+            
+            <a href="sidequests.html" class="room-object" style="top: 15%; left: 16%; z-index: 10;">
                 <img src="assets/Quest_Board.png" alt="Quest Board" class="w-24 md:w-36 pixelated drop-shadow-xl">
                 <span>Side Quests</span>
             </a>
-            <a href="inventory.html" class="room-object" style="bottom: 30%; left: 16%; transform: translateX(-50%); z-index: 25;">
+            
+            <a href="inventory.html" class="room-object" style="bottom: 28%; left: 22%; transform: translateX(-50%); z-index: 25;">
                 <img src="assets/Wooden_Chest.png" alt="Chest" class="w-24 md:w-40 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
                 <span>Artifact Inventory</span>
             </a>
 
             <!-- CENTER QUADRANT -->
-            <img src="assets/Lantern.png" alt="Lantern" class="room-decor w-10 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)]" style="top: 35%; left: 38%; transform: translateX(-50%);">
-            <img src="assets/Lantern.png" alt="Lantern" class="room-decor w-10 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)]" style="top: 35%; left: 62%; transform: translateX(-50%);">
+            <img src="assets/Lantern.png" alt="Lantern" class="room-decor w-10 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)]" style="top: 20%; left: 38%; transform: translateX(-50%);">
+            
+            <img src="assets/Lantern.png" alt="Lantern" class="room-decor w-10 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)]" style="top: 20%; left: 62%; transform: translateX(-50%);">
 
-            <div class="absolute z-20 flex justify-center w-56 h-56 md:w-72 md:h-72 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]" style="bottom: 25%; left: 50%; transform: translateX(-50%);" onmouseenter="togglePersona(true)" onmouseleave="togglePersona(false)">
+            <div class="absolute z-20 flex justify-center w-56 h-56 md:w-72 md:h-72 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]" style="bottom: 25%; left: 50%; transform: translateX(-50%);" onmouseenter="toggleLevel(true)" onmouseleave="toggleLevel(false)">
                 <img src="assets/Main_Avatar.png" alt="Main Avatar" class="w-full h-full object-contain pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)]">
                 <div id="lvl-badge" class="absolute top-4 right-8 md:top-8 md:right-12 bg-medRose text-medCream border border-medCream rounded px-2 py-0.5 text-xs md:text-sm font-bold glow-rose z-50 pointer-events-none shadow-md opacity-0 transition-opacity duration-300">
                     LVL 5
                 </div>
             </div>
 
-            <a href="academy.html" class="room-object" style="bottom: 2%; left: 50%; transform: translateX(-50%); z-index: 40;">
+            <a href="academy.html" class="room-object" style="bottom: -4%; left: 50%; transform: translateX(-50%); z-index: 40;">
                 <img src="assets/Heavy_Desk.png" alt="Heavy Desk" class="w-56 md:w-80 pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.9)]">
                 <span>The Academy</span>
             </a>
@@ -176,17 +187,12 @@
     </footer>
 
     <script>
-        function togglePersona(show) {
-            const personaBox = document.getElementById('persona-box');
+        function toggleLevel(show) {
             const lvlBadge = document.getElementById('lvl-badge');
             if (show) {
-                personaBox.classList.remove('opacity-0', 'scale-95');
-                personaBox.classList.add('opacity-100', 'scale-100');
                 lvlBadge.classList.remove('opacity-0');
                 lvlBadge.classList.add('opacity-100');
             } else {
-                personaBox.classList.add('opacity-0', 'scale-95');
-                personaBox.classList.remove('opacity-100', 'scale-100');
                 lvlBadge.classList.add('opacity-0');
                 lvlBadge.classList.remove('opacity-100');
             }
@@ -217,7 +223,10 @@
         function collectCoin(event, element) {
             const pouch = document.getElementById('pouch');
             const ghostCoin = document.createElement('div');
+            
+            // To update to an image instead of an emoji, change this line!
             ghostCoin.innerText = '🪙';
+            
             ghostCoin.style.position = 'fixed';
             ghostCoin.style.left = event.clientX + 'px';
             ghostCoin.style.top = event.clientY + 'px';

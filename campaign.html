@@ -1,230 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FULL CAMPAIGN LOG | Madeline Beebe</title>
+    <title>Campaign Log | Madeline Beebe</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        medSlate: '#403A5C',
-                        medSage: '#58AD8B',
-                        medGold: '#F7DA20',
-                        medAmber: '#E48F15',
-                        medCrimson: '#B33254',
-                        medDarkBg: '#1f1a2e'
-                    }
+                        medNavyTeal: '#0d1b2a', 
+                        medIce: '#B9D6E5',
+                        medPlum: '#4E3A53',
+                        medOlive: '#698F3D',
+                        medPistachio: '#D6E685',
+                        medRose: '#D06D9C',
+                        medCream: '#F5EDB9',
+                        medWood: '#3e2723',
+                        medDarkWood: '#251613'
+                    },
+                    fontFamily: { medieval: ['"MedievalSharp"', 'cursive'] }
                 }
             }
         }
     </script>
     <style>
-        .font-pixel { font-family: 'Press Start 2P', monospace; }
-        .font-terminal { font-family: 'VT323', monospace; }
-        .gold-glow { text-shadow: 0 0 6px rgba(247, 218, 32, 0.6); }
-        .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
+        body { 
+            font-family: 'MedievalSharp', cursive; 
+            margin: 0;
+            background-color: #4E3A53;
+            background-image: radial-gradient(circle at center, #4E3A53 0%, #1a1423 100%);
+        }
+
+        .glow-ice { text-shadow: 0 0 10px rgba(185, 214, 229, 0.8); }
+        .glow-rose { text-shadow: 0 0 10px rgba(208, 109, 156, 0.8); }
+
+        /* The Endless Parchment */
+        .parchment-scroll {
+            background-color: #F5EDB9;
+            border-left: 16px solid #8c5a35;
+            border-right: 16px solid #8c5a35;
+            border-top: 32px solid #3e2723;
+            border-bottom: 32px solid #3e2723;
+            box-shadow: inset 0 0 60px rgba(62, 39, 35, 0.2), 0 20px 50px rgba(0,0,0,0.8);
+            color: #251613;
+        }
+
+        /* Timeline Mechanics */
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 5px;
+            top: 10px;
+            bottom: 0;
+            width: 4px;
+            background-color: #8c5a35;
+            opacity: 0.4;
+            border-radius: 2px;
+        }
+        .timeline-node {
+            position: absolute;
+            left: -12px;
+            top: 2px;
+            width: 18px;
+            height: 18px;
+            background-color: #F5EDB9;
+            border: 4px solid #D06D9C;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(208, 109, 156, 0.6);
+        }
+        .node-current {
+            background-color: #D6E685;
+            border-color: #698F3D;
+            box-shadow: 0 0 15px rgba(214, 230, 133, 0.8);
+        }
+
+        /* Skill Runes (Visual Bumping) */
+        .skill-rune {
+            display: inline-block;
+            padding: 4px 10px;
+            margin: 3px 4px 3px 0;
+            background-color: rgba(13, 27, 42, 0.05);
+            border: 1px solid #0d1b2a;
+            color: #0d1b2a;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+            cursor: default;
+        }
+        .skill-rune:hover {
+            background-color: #0d1b2a;
+            color: #F5EDB9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
-<body class="bg-medDarkBg text-slate-200 font-terminal text-lg md:text-xl min-h-screen p-3 md:p-6">
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center">
 
-    <div class="max-w-5xl mx-auto border-4 border-medSage bg-medSlate rounded-3xl p-4 md:p-8 shadow-2xl">
-
-        <!-- HEADER -->
-        <header class="border-b-2 border-medSage/40 pb-4 mb-6 flex justify-between items-center flex-wrap gap-4">
-            <div>
-                <a href="index.html" class="font-pixel text-xs text-medSage hover:text-medGold mb-2 inline-block">← Return to Dashboard</a>
-                <h1 class="font-pixel text-sm md:text-base text-medGold gold-glow">CAMPAIGN LOG</h1>
-                <p class="text-xs text-slate-300 font-mono">Year 1 Novicius → Year 5 Magister → Agencia</p>
-            </div>
-            <a href="index.html" class="px-3 py-2 bg-medDarkBg border border-medGold text-medGold font-pixel text-xs rounded-xl hover:bg-medGold hover:text-medDarkBg transition-colors flex items-center gap-2">
-                Dashboard
-            </a>
-        </header>
-
-        <!-- CHRONOLOGICAL LEVEL TIMELINE -->
-        <div class="space-y-8">
-
-            <!-- LEVEL 1: NOVICIUS -->
-            <section class="border-2 border-medSage/60 bg-medDarkBg/90 p-5 rounded-2xl">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <span class="font-pixel text-xs text-medAmber block">LEVEL 1: NOVICIUS (Year 1 at The Academy)</span>
-                        <span class="text-xs text-medSage font-mono">PURPOSE: COMMUNITY</span>
-                    </div>
-                    <span class="px-2 py-0.5 bg-medSage/20 text-medSage text-xs font-mono rounded">Completed Summer 2023</span>
-                </div>
-                
-                <div class="pl-4 border-l-2 border-medSage/40 space-y-3">
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 1A: Alpha Delta Chi Induction</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Winter 2022 • Degree Path Chosen</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Communication I, Timeliness I, Teamwork I, Arithmetic I, Strategy I, Adventure I</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEVEL 2: DISCIPULUS -->
-            <section class="border-2 border-medSage/60 bg-medDarkBg/90 p-5 rounded-2xl">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <span class="font-pixel text-xs text-medAmber block">LEVEL 2: DISCIPULUS (Year 2 at The Academy)</span>
-                        <span class="text-xs text-medSage font-mono">PURPOSE: STUDIES</span>
-                    </div>
-                    <span class="px-2 py-0.5 bg-medSage/20 text-medSage text-xs font-mono rounded">Completed Summer 2024</span>
-                </div>
-
-                <div class="pl-4 border-l-2 border-medSage/40 space-y-4">
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 2A: Cosmonautics Disciplines I</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Spring 2024</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Cosmonautics I-II, Arithmetic II-III, Strategy II-III, Communication II, Tech I</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 2B: Alpha Delta Chi Vice Presidency</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Winter 2024</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Leadership I-II, Communication III, Coin I, Troop Mgmt I, Inclusion I, Teamwork II</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-medGold">Agencium Dio: Hana Technologies Manufacturing Engineering Apprenticeship</h3>
-                        <p class="text-xs text-slate-400 font-mono">Location: Cleveland, Ohio • Status: Completed Summer 2024</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Tech II-III, Prototyping I-II, Kaizen I & 6S I, Building I, Teamwork III</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEVEL 3: SCHOLARIS -->
-            <section class="border-2 border-medSage/60 bg-medDarkBg/90 p-5 rounded-2xl">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <span class="font-pixel text-xs text-medAmber block">LEVEL 3: SCHOLARIS (Year 3 at The Academy)</span>
-                        <span class="text-xs text-medSage font-mono">PURPOSE: LEADERSHIP</span>
-                    </div>
-                    <span class="px-2 py-0.5 bg-medSage/20 text-medSage text-xs font-mono rounded">Completed Summer 2025</span>
-                </div>
-
-                <div class="pl-4 border-l-2 border-medSage/40 space-y-4">
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 3A: Alpha Delta Chi Presidency</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Winter 2025</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Leadership III-IV, Coin II-III, Troop Mgmt II-III, Inclusion II, Strategy IV</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 3B: Dalliscape Apprenticeship</h3>
-                        <p class="text-xs text-slate-400 font-mono">Location: Porto, Portugal • Completed Summer 2024</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Tech IV, Coin IV, Troop Mgmt IV, Inclusion III, Teamwork IV, Adventure II</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 3C: Cosmonautics Disciplines II</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Spring 2025</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Cosmonautics III, Arithmetic V, Prototyping III, Building II</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-medGold">Agencium Trius: Midwest Aircraft Manufacturing Apprenticeship</h3>
-                        <p class="text-xs text-slate-400 font-mono">Location: Indianapolis, Indiana • Status: Completed Summer 2025</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Building III, Prototyping IV, Cosmonautics IV, Tech V, Troop Mgmt IV</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEVEL 4: BACCAREUS -->
-            <section class="border-2 border-medSage/60 bg-medDarkBg/90 p-5 rounded-2xl">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <span class="font-pixel text-xs text-medAmber block">LEVEL 4: BACCAREUS (Year 4 at The Academy)</span>
-                        <span class="text-xs text-medSage font-mono">PURPOSE: TEAMWORK</span>
-                    </div>
-                    <span class="px-2 py-0.5 bg-medSage/20 text-medSage text-xs font-mono rounded">Completed Summer 2026</span>
-                </div>
-
-                <div class="pl-4 border-l-2 border-medSage/40 space-y-4">
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 4A: Academy Crew Team</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Spring 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Rowing I-II, Endurance I-II, Strength I-II, Teamwork VI-VII</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 4B: Cosmonautics Disciplines III</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Spring 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Cosmonautics V, Building IV, Tech VI, Coin V, Strategy VII</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 4C: Cosmonautia Build</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Spring 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Cosmonautics VI-VII, Building IV-V, Prototyping V, Troop Mgmt V, Strength III</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 4D: Cosmonautia Consult</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: Completed Spring 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Cosmonautics VIII-IX, Strategy IX-X, Coin VII, Teamwork IX, Inclusion III</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-medGold">Agencium Quarti: C&J Resources Apprenticeship</h3>
-                        <p class="text-xs text-slate-400 font-mono">Location: Tuscaloosa, Alabama • Status: In Progress Summer 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Troop Mgmt VII-VIII, Apprenticemaking I-II, Strategy XI, Endurance III</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEVEL 5: MAGISTER -->
-            <section class="border-2 border-medGold bg-medDarkBg p-5 rounded-2xl shadow-lg">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <span class="font-pixel text-xs text-medGold gold-glow block">LEVEL 5: MAGISTER (Year 5 at The Academy)</span>
-                        <span class="text-xs text-medGold font-mono">PURPOSE: PROJECTS</span>
-                    </div>
-                    <span class="px-2 py-0.5 bg-medGold/20 text-medGold text-xs font-mono rounded">CURRENT STAGE</span>
-                </div>
-
-                <div class="pl-4 border-l-2 border-medGold/40 space-y-4">
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 5A: Symphonic Visualizer Project</h3>
-                        <p class="text-xs text-slate-400 font-mono">Location: Technologic Dimension • Completed Summer 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Tech X-XI, Endurance IV, Arithmetic X</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-slate-100">Mission 5B: DFW Airport Research Scroll Co-Authorship</h3>
-                        <p class="text-xs text-slate-400 font-mono">Status: In Progress Summer 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Loading...</p>
-                    </div>
-
-                    <div>
-                        <h3 class="font-pixel text-xs text-medGold">Agencium Pentau: Academy Teaching Apprentice</h3>
-                        <p class="text-xs text-slate-400 font-mono">Location: Tuscaloosa, Alabama • Status: In Progress Fall 2026</p>
-                        <p class="text-xs text-medSage font-mono mt-1">Skills: Loading...</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEVEL 6: AGENCIA -->
-            <section class="border-2 border-medCrimson/60 bg-medDarkBg/40 p-5 rounded-2xl opacity-80">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <span class="font-pixel text-xs text-medCrimson block">LEVEL 6: AGENCIA (Year 1 as an Agent)</span>
-                        <span class="text-xs text-medCrimson font-mono">PURPOSE: PERSONAL IMPACT</span>
-                    </div>
-                    <span class="px-2 py-0.5 bg-medCrimson/20 text-medCrimson text-xs font-mono rounded">UNLOCKS MAY 2027</span>
-                </div>
-                <p class="text-xs text-slate-400 font-mono">Progress: Loading...</p>
-            </section>
-
+    <!-- Navigation Header -->
+    <div class="w-full max-w-4xl flex justify-between items-center mb-6 px-2">
+        <a href="index.html" class="text-medIce hover:text-medPistachio text-lg transition-colors flex items-center gap-2">
+            ← Return to Study
+        </a>
+        <div class="text-xl md:text-2xl text-medCream glow-ice tracking-widest uppercase">
+            Madeline Beebe
         </div>
-
     </div>
 
+    <!-- THE CHRONICLER's PARCHMENT -->
+    <div class="w-full max-w-4xl parchment-scroll rounded-sm p-6 md:p-12 mb-12">
+        
+        <div class="text-center border-b-4 border-medWood/30 pb-6 mb-10">
+            <h1 class="text-4xl md:text-5xl text-medWood tracking-widest uppercase mb-2">The Campaign Log</h1>
+            <p class="text-lg text-medWood/70">A Chronicle of Endeavors • Year I to Present</p>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <!-- ========================================== -->
+            <!-- LEVEL 1: NOVICIUS                          -->
+            <!-- ========================================== -->
+            <div class="relative mb-16">
+                <div class="timeline-node"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4">
+                    <div>
+                        <h2 class="text-2xl text-medRose glow-rose uppercase tracking-wider">Level I: Novicius</h2>
+                        <p class="text-medWood/80 italic">Year 1 at The Academy • Purpose: Community</p>
+                    </div>
+                    <span class="text-sm font-bold text-medWood/60 border-b border-medWood/30 mt-2 md:mt-0">Completed Summer 2023</span>
+                </div>
+                
+                <div class="pl-4 border-l-2 border-medWood/10 space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 1A: Alpha Delta Chi Induction</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Winter 2022 • Degree Path Chosen</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Communication I</span>
+                            <span class="skill-rune">Timeliness I</span>
+                            <span class="skill-rune">Teamwork I</span>
+                            <span class="skill-rune">Arithmetic I</span>
+                            <span class="skill-rune">Strategy I</span>
+                            <span class="skill-rune">Adventure I</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- LEVEL 2: DISCIPULUS                        -->
+            <!-- ========================================== -->
+            <div class="relative mb-16">
+                <div class="timeline-node"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4">
+                    <div>
+                        <h2 class="text-2xl text-medRose glow-rose uppercase tracking-wider">Level II: Discipulus</h2>
+                        <p class="text-medWood/80 italic">Year 2 at The Academy • Purpose: Studies</p>
+                    </div>
+                    <span class="text-sm font-bold text-medWood/60 border-b border-medWood/30 mt-2 md:mt-0">Completed Summer 2024</span>
+                </div>
+
+                <div class="pl-4 border-l-2 border-medWood/10 space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 2A: Cosmonautics Disciplines I</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Spring 2024</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Cosmonautics I-II</span>
+                            <span class="skill-rune">Arithmetic II-III</span>
+                            <span class="skill-rune">Strategy II-III</span>
+                            <span class="skill-rune">Communication II</span>
+                            <span class="skill-rune">Tech I</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 2B: Alpha Delta Chi Vice Presidency</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Winter 2024</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Leadership I-II</span>
+                            <span class="skill-rune">Communication III</span>
+                            <span class="skill-rune">Coin I</span>
+                            <span class="skill-rune">Troop Mgmt I</span>
+                            <span class="skill-rune">Inclusion I</span>
+                            <span class="skill-rune">Teamwork II</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Agencium Dio: Hana Technologies Manufacturing Engineering Apprenticeship</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Cleveland, Ohio • Completed Summer 2024</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Tech II-III</span>
+                            <span class="skill-rune">Prototyping I-II</span>
+                            <span class="skill-rune">Kaizen I & 6S I</span>
+                            <span class="skill-rune">Building I</span>
+                            <span class="skill-rune">Teamwork III</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- LEVEL 3: SCHOLARIS                         -->
+            <!-- ========================================== -->
+            <div class="relative mb-16">
+                <div class="timeline-node"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4">
+                    <div>
+                        <h2 class="text-2xl text-medRose glow-rose uppercase tracking-wider">Level III: Scholaris</h2>
+                        <p class="text-medWood/80 italic">Year 3 at The Academy • Purpose: Leadership</p>
+                    </div>
+                    <span class="text-sm font-bold text-medWood/60 border-b border-medWood/30 mt-2 md:mt-0">Completed Summer 2025</span>
+                </div>
+
+                <div class="pl-4 border-l-2 border-medWood/10 space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 3A: Alpha Delta Chi Presidency</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Winter 2025</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Leadership III-IV</span>
+                            <span class="skill-rune">Coin II-III</span>
+                            <span class="skill-rune">Troop Mgmt II-III</span>
+                            <span class="skill-rune">Inclusion II</span>
+                            <span class="skill-rune">Strategy IV</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 3B: Dalliscape Apprenticeship</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Porto, Portugal • Completed Summer 2024</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Tech IV</span>
+                            <span class="skill-rune">Coin IV</span>
+                            <span class="skill-rune">Troop Mgmt IV</span>
+                            <span class="skill-rune">Inclusion III</span>
+                            <span class="skill-rune">Teamwork IV</span>
+                            <span class="skill-rune">Adventure II</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 3C: Cosmonautics Disciplines II</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Spring 2025</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Cosmonautics III</span>
+                            <span class="skill-rune">Arithmetic V</span>
+                            <span class="skill-rune">Prototyping III</span>
+                            <span class="skill-rune">Building II</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Agencium Trius: Midwest Aircraft Manufacturing Apprenticeship</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Indianapolis, Indiana • Completed Summer 2025</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Building III</span>
+                            <span class="skill-rune">Prototyping IV</span>
+                            <span class="skill-rune">Cosmonautics IV</span>
+                            <span class="skill-rune">Tech V</span>
+                            <span class="skill-rune">Troop Mgmt IV</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- LEVEL 4: BACCAREUS                         -->
+            <!-- ========================================== -->
+            <div class="relative mb-16">
+                <div class="timeline-node"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4">
+                    <div>
+                        <h2 class="text-2xl text-medRose glow-rose uppercase tracking-wider">Level IV: Baccareus</h2>
+                        <p class="text-medWood/80 italic">Year 4 at The Academy • Purpose: Teamwork</p>
+                    </div>
+                    <span class="text-sm font-bold text-medWood/60 border-b border-medWood/30 mt-2 md:mt-0">Completed Summer 2026</span>
+                </div>
+
+                <div class="pl-4 border-l-2 border-medWood/10 space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 4A: Academy Crew Team</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Spring 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Rowing I-II</span>
+                            <span class="skill-rune">Endurance I-II</span>
+                            <span class="skill-rune">Strength I-II</span>
+                            <span class="skill-rune">Teamwork VI-VII</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 4B: Cosmonautics Disciplines III</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Spring 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Cosmonautics V</span>
+                            <span class="skill-rune">Building IV</span>
+                            <span class="skill-rune">Tech VI</span>
+                            <span class="skill-rune">Coin V</span>
+                            <span class="skill-rune">Strategy VII</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 4C: Cosmonautia Build</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Spring 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Cosmonautics VI-VII</span>
+                            <span class="skill-rune">Building IV-V</span>
+                            <span class="skill-rune">Prototyping V</span>
+                            <span class="skill-rune">Troop Mgmt V</span>
+                            <span class="skill-rune">Strength III</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 4D: Cosmonautia Consult</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Completed Spring 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Cosmonautics VIII-IX</span>
+                            <span class="skill-rune">Strategy IX-X</span>
+                            <span class="skill-rune">Coin VII</span>
+                            <span class="skill-rune">Teamwork IX</span>
+                            <span class="skill-rune">Inclusion III</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Agencium Quarti: C&J Resources Apprenticeship</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Tuscaloosa, Alabama • In Progress Summer 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Troop Mgmt VII-VIII</span>
+                            <span class="skill-rune">Apprenticemaking I-II</span>
+                            <span class="skill-rune">Strategy XI</span>
+                            <span class="skill-rune">Endurance III</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- LEVEL 5: MAGISTER (CURRENT)                -->
+            <!-- ========================================== -->
+            <div class="relative mb-16">
+                <div class="timeline-node node-current"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4">
+                    <div>
+                        <h2 class="text-2xl text-medOlive uppercase tracking-wider" style="text-shadow: 0 0 10px rgba(105, 143, 61, 0.4);">Level V: Magister</h2>
+                        <p class="text-medWood/80 italic">Year 5 at The Academy • Purpose: Projects</p>
+                    </div>
+                    <span class="text-sm font-bold text-medOlive border-b border-medOlive/30 mt-2 md:mt-0">CURRENT STAGE</span>
+                </div>
+
+                <div class="pl-4 border-l-4 border-medOlive/40 space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 5A: Symphonic Visualizer Project</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Technologic Dimension • Completed Summer 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune">Tech X-XI</span>
+                            <span class="skill-rune">Endurance IV</span>
+                            <span class="skill-rune">Arithmetic X</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Mission 5B: DFW Airport Research Scroll Co-Authorship</h3>
+                        <p class="text-sm text-medWood/70 mb-2">In Progress Summer 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune animate-pulse">Loading Next Skill...</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-medNavyTeal mb-1">Agencium Pentau: Academy Teaching Apprentice</h3>
+                        <p class="text-sm text-medWood/70 mb-2">Tuscaloosa, Alabama • In Progress Fall 2026</p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-rune animate-pulse">Loading Next Skill...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- LEVEL 6: AGENCIA (FUTURE)                  -->
+            <!-- ========================================== -->
+            <div class="relative opacity-60">
+                <div class="timeline-node !border-medDarkWood !bg-medWood/20"></div>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-4">
+                    <div>
+                        <h2 class="text-2xl text-medDarkWood uppercase tracking-wider">Level VI: Agencia</h2>
+                        <p class="text-medWood/80 italic">Year 1 as an Agent • Purpose: Personal Impact</p>
+                    </div>
+                    <span class="text-sm font-bold text-medWood/60 border-b border-medWood/30 mt-2 md:mt-0">UNLOCKS MAY 2027</span>
+                </div>
+                <div class="pl-4 border-l-2 border-medWood/10 border-dashed">
+                    <p class="text-md text-medWood italic py-4">The chronicles for this era have yet to be written...</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>

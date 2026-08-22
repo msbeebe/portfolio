@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overworld Map | Madeline Beebe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medNavyTeal: '#0d1b2a', 
+                        medIce: '#B9D6E5',
+                        medPlum: '#4E3A53',
+                        medOlive: '#698F3D',
+                        medPistachio: '#D6E685',
+                        medRose: '#D06D9C',
+                        medCream: '#F5EDB9',
+                        medWood: '#3e2723',
+                        medDarkWood: '#251613'
+                    },
+                    fontFamily: { medieval: ['"MedievalSharp"', 'cursive'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'MedievalSharp', cursive; 
+            margin: 0;
+            overflow-x: hidden; 
+            background-color: #4E3A53;
+        }
+
+        .glow-pistachio { text-shadow: 0 0 10px rgba(214, 230, 133, 0.8); }
+        .glow-ice { text-shadow: 0 0 10px rgba(185, 214, 229, 0.8); }
+        .box-glow { box-shadow: 0 0 30px rgba(13, 27, 42, 0.8); }
+        .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
+        
+        /* Tabletop Background */
+        .table-surface {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #3e2723, #251613, #1a100e);
+            z-index: 1;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+        }
+
+        /* The Map Canvas */
+        .map-canvas {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%; height: 85%;
+            background-color: #F5EDB9;
+            border: 4px solid #d4a373;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 50px rgba(140, 90, 53, 0.3);
+            z-index: 10;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(140, 90, 53, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(140, 90, 53, 0.15) 0%, transparent 25%);
+        }
+
+        /* Interactive Map Pins */
+        .map-pin {
+            position: absolute;
+            z-index: 30;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .map-pin:hover {
+            transform: scale(1.2) translateY(-5px);
+            filter: drop-shadow(0 0 15px rgba(214,230,133,0.8));
+            z-index: 50;
+        }
+
+        /* Tooltip Plaque */
+        .pin-tooltip {
+            opacity: 0;
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background-color: rgba(13, 27, 42, 0.95);
+            border: 2px solid #D6E685;
+            color: #F5EDB9;
+            padding: 10px 14px;
+            border-radius: 6px;
+            width: max-content;
+            max-width: 220px;
+            text-align: center;
+            pointer-events: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+        }
+        .map-pin:hover .pin-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @keyframes goldPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 rgba(214,230,133,0); }
+            50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(214,230,133,1); }
+            100% { transform: scale(1); box-shadow: 0 0 0 rgba(214,230,133,0); }
+        }
+        .animate-pulse-gold { animation: goldPulse 0.5s ease-out; }
+    </style>
+</head>
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initMap()">
+
+    <div class="fixed top-6 left-6 z-50 text-2xl md:text-3xl text-medCream glow-ice pointer-events-none tracking-widest">
+        Madeline Beebe
+    </div>
+
+    <!-- Pouch -->
+    <div id="pouch" class="fixed top-6 right-6 bg-medWood border-2 border-medPistachio text-medPistachio px-4 py-2 rounded-xl z-50 shadow-lg flex items-center gap-2 text-2xl cursor-default">
+        <span>🪙</span> <span id="coin-count" class="glow-pistachio">0</span>
+    </div>
+
+    <div class="relative w-full max-w-5xl mx-auto mt-20 md:mt-16 mb-8">
+        
+        <a href="index.html" class="absolute -top-12 left-4 z-50 text-medIce hover:text-medPistachio text-lg transition-colors flex items-center gap-2">
+            ← Return to Study
+        </a>
+
+        <!-- THE TABLETOP DIORAMA -->
+        <div class="relative w-full aspect-square md:aspect-[16/9] border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
+            
+            <div class="table-surface"></div>
+
+            <!-- Title Engraved on Table -->
+            <div class="absolute top-4 w-full text-center z-20 pointer-events-none">
+                <h1 class="text-3xl md:text-4xl text-medCream/80 tracking-widest uppercase drop-shadow-md">Realm Overworld</h1>
+            </div>
+
+            <!-- THE PARCHMENT MAP -->
+            <div class="map-canvas relative">
+                
+                <!-- Central Compass/Art (Optional placeholder for map art) -->
+                <div class="absolute opacity-20 pointer-events-none" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <img src="assets/Wall_Map.png" alt="Map Texture" class="w-64 md:w-96 pixelated">
+                </div>
+
+                <!-- ========================================== -->
+                <!-- MAP PINS                                   -->
+                <!-- ========================================== -->
+
+                <!-- Tuscaloosa Pin (South Central) -->
+                <div class="map-pin" style="top: 75%; left: 55%;">
+                    <img src="assets/Lantern.png" alt="Pin" class="w-8 md:w-12 pixelated drop-shadow-lg">
+                    <div class="pin-tooltip">
+                        <h3 class="text-medPistachio font-bold text-sm mb-1 border-b border-medWood pb-1">The Capstone Citadel</h3>
+                        <p class="text-xs text-medCream leading-tight">Tuscaloosa, AL. The primary stronghold for scholastic pursuits, rowing endurance, and academic mentoring.</p>
+                    </div>
+                </div>
+
+                <!-- Indianapolis Pin (Midwest) -->
+                <div class="map-pin" style="top: 45%; left: 45%;">
+                    <img src="assets/Art_Star.png" alt="Pin" class="w-6 md:w-8 pixelated drop-shadow-lg">
+                    <div class="pin-tooltip">
+                        <h3 class="text-medIce font-bold text-sm mb-1 border-b border-medWood pb-1">The Crossroads Forge</h3>
+                        <p class="text-xs text-medCream leading-tight">Indianapolis, IN. Site of the Midwest Aircraft manufacturing outpost, where quoting speeds were optimized.</p>
+                    </div>
+                </div>
+
+                <!-- Cleveland Pin (North East) -->
+                <div class="map-pin" style="top: 35%; left: 65%;">
+                    <img src="assets/Art_Star.png" alt="Pin" class="w-6 md:w-8 pixelated drop-shadow-lg">
+                    <div class="pin-tooltip">
+                        <h3 class="text-medIce font-bold text-sm mb-1 border-b border-medWood pb-1">The Northern Forges</h3>
+                        <p class="text-xs text-medCream leading-tight">Cleveland, OH. Family ties and the location of the Hana Technologies testing apparatus development.</p>
+                    </div>
+                </div>
+
+                <!-- Nashville Pin (South) -->
+                <div class="map-pin" style="top: 60%; left: 58%;">
+                    <img src="assets/Art_Star.png" alt="Pin" class="w-6 md:w-8 pixelated drop-shadow-lg">
+                    <div class="pin-tooltip">
+                        <h3 class="text-medRose font-bold text-sm mb-1 border-b border-medWood pb-1">Music City Outpost</h3>
+                        <p class="text-xs text-medCream leading-tight">Nashville, TN. A vital allied outpost housing close family ties and realm connections.</p>
+                    </div>
+                </div>
+
+                <!-- Porto Pin (Far East / Across the sea) -->
+                <div class="map-pin" style="top: 50%; right: 10%;">
+                    <img src="assets/Art_Fellowship.png" alt="Pin" class="w-8 md:w-10 pixelated drop-shadow-lg">
+                    <div class="pin-tooltip">
+                        <h3 class="text-medPistachio font-bold text-sm mb-1 border-b border-medWood pb-1">Porto Harbor Town</h3>
+                        <p class="text-xs text-medCream leading-tight">Porto, Portugal. The European innovation hub where Dalliscape was founded.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Hidden Coin -->
+            <button id="hidden-coin" onclick="collectCoin(event, this)" class="absolute text-3xl md:text-4xl opacity-0 hover:opacity-100 transition-all z-[100] drop-shadow-[0_0_15px_rgba(214,230,133,0.8)]" title="A hidden coin!">
+                🪙
+            </button>
+        </div>
+    </div>
+
+    <footer class="mt-4 pb-12 text-center w-full px-4">
+        <p class="text-medPistachio text-lg md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
+            driving directive: leverage skills to become a realm force for good.
+        </p>
+    </footer>
+
+    <script>
+        function initMap() {
+            let coins = localStorage.getItem('agencia_coins') || 0;
+            document.getElementById('coin-count').innerText = coins;
+
+            const spawnPoints = [
+                { top: '10%', left: '10%' },
+                { bottom: '10%', right: '10%' },
+                { top: '15%', right: '15%' }
+            ];
+
+            const coin = document.getElementById('hidden-coin');
+            const randomSpawn = spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
+            
+            if (randomSpawn.top) coin.style.top = randomSpawn.top;
+            if (randomSpawn.bottom) coin.style.bottom = randomSpawn.bottom;
+            if (randomSpawn.left) coin.style.left = randomSpawn.left;
+            if (randomSpawn.right) coin.style.right = randomSpawn.right;
+        }
+
+        function collectCoin(event, element) {
+            const pouch = document.getElementById('pouch');
+            const ghostCoin = document.createElement('div');
+            ghostCoin.innerText = '🪙';
+            ghostCoin.style.position = 'fixed';
+            ghostCoin.style.left = event.clientX + 'px';
+            ghostCoin.style.top = event.clientY + 'px';
+            ghostCoin.style.fontSize = window.innerWidth < 768 ? '2rem' : '3rem';
+            ghostCoin.style.zIndex = '9999';
+            ghostCoin.style.pointerEvents = 'none';
+            ghostCoin.style.transition = 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)'; 
+            document.body.appendChild(ghostCoin);
+            element.style.display = 'none';
+
+            setTimeout(() => {
+                const pouchRect = pouch.getBoundingClientRect();
+                ghostCoin.style.left = (pouchRect.left + 20) + 'px';
+                ghostCoin.style.top = (pouchRect.top + 10) + 'px';
+                ghostCoin.style.transform = 'scale(0.5)';
+                ghostCoin.style.opacity = '0';
+            }, 20);
+
+            setTimeout(() => {
+                ghostCoin.remove();
+                let coins = parseInt(localStorage.getItem('agencia_coins') || 0) + 1;
+                localStorage.setItem('agencia_coins', coins);
+                document.getElementById('coin-count').innerText = coins;
+                
+                pouch.classList.add('animate-pulse-gold');
+                setTimeout(() => pouch.classList.remove('animate-pulse-gold'), 500);
+            }, 720);
+        }
+    </script>
+</body>
+</html>

@@ -196,7 +196,22 @@
             { id: "Art_Letter", name: "Letter of Love", date: "Collected Fall 2024", desc: "A vital tether holding correspondence and reminding the bearer of close-knit family ties and outposts across the realm." }
         ];
 
-        
+        function initInventory() {
+            // Setup Grid
+            const grid = document.getElementById('grid-container');
+            
+            artifacts.forEach((artifact, index) => {
+                const slot = document.createElement('div');
+                slot.className = 'inv-slot';
+                slot.innerHTML = `<img src="assets/${artifact.id}.png" alt="${artifact.name}" class="w-10 h-10 pixelated drop-shadow-md">`;
+                
+                // Add event listeners for interactivity
+                slot.addEventListener('mouseenter', () => updateInspector(index, slot));
+                slot.addEventListener('click', () => updateInspector(index, slot));
+                
+                grid.appendChild(slot);
+            });
+
             // Fill remaining empty slots to make the grid look full (e.g., up to 24 slots)
             const emptySlotsNeeded = 24 - artifacts.length;
             for(let i=0; i < emptySlotsNeeded; i++) {

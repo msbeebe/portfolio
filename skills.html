@@ -58,19 +58,20 @@
 
         .bookcase {
             background-color: #1a100e;
-            border: 6px solid #3e2723;
-            box-shadow: 10px 10px 20px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.9);
+            border: 4px solid #3e2723;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.7), inset 0 0 10px rgba(0,0,0,0.9);
             z-index: 10;
         }
         .shelf-row {
-            border-bottom: 4px solid #3e2723;
-            box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+            border-bottom: 2px solid #3e2723;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.5);
             transition: all 0.2s;
         }
         .shelf-row:hover { background-color: rgba(214, 230, 133, 0.1); }
         
+        /* Mobile-First Book Sizes */
         .book-scholaris {
-            width: 6px; height: 18px;
+            width: 3px; height: 10px;
             background-color: #B9D6E5;
             border: 1px solid #0d1b2a;
             border-radius: 1px;
@@ -78,12 +79,12 @@
         }
         .shelf-row:hover .book-scholaris {
             background-color: #D6E685;
-            box-shadow: 0 0 8px #D6E685;
-            transform: translateY(-2px);
+            box-shadow: 0 0 4px #D6E685;
+            transform: translateY(-1px);
         }
 
         .book-dynamicus {
-            width: 6px; height: 18px;
+            width: 3px; height: 10px;
             background-color: #D06D9C;
             border: 1px solid #0d1b2a;
             border-radius: 1px;
@@ -91,12 +92,23 @@
         }
         .shelf-row:hover .book-dynamicus {
             background-color: #698F3D;
-            box-shadow: 0 0 8px #698F3D;
-            transform: translateY(-2px);
+            box-shadow: 0 0 4px #698F3D;
+            transform: translateY(-1px);
         }
 
+        /* Desktop Adjustments for Bookcases and Books */
         @media (min-width: 768px) {
+            .bookcase {
+                border-width: 6px;
+                box-shadow: 10px 10px 20px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.9);
+            }
+            .shelf-row {
+                border-bottom-width: 4px;
+                box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+            }
             .book-scholaris, .book-dynamicus { width: 8px; height: 24px; }
+            .shelf-row:hover .book-scholaris { box-shadow: 0 0 8px #D6E685; transform: translateY(-2px); }
+            .shelf-row:hover .book-dynamicus { box-shadow: 0 0 8px #698F3D; transform: translateY(-2px); }
         }
 
         @keyframes goldPulse {
@@ -107,204 +119,209 @@
         .animate-pulse-gold { animation: goldPulse 0.5s ease-out; }
     </style>
 </head>
-<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initCoins()">
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center">
 
-    <div class="fixed top-6 left-6 z-50 text-2xl md:text-3xl text-medCream glow-ice pointer-events-none tracking-widest">
-        Madeline Beebe
+    <!-- CENTERED NAME (Above Diorama) -->
+    <div class="w-full text-center mt-6 md:mt-2 mb-4">
+        <!-- Scaled down for mobile -->
+        <h1 class="text-3xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
     </div>
 
-    <div class="relative w-full max-w-5xl mx-auto mt-20 md:mt-16 mb-8">
+    <!-- MAIN DIORAMA WRAPPER (Shrink-to-fit applied) -->
+    <div class="relative w-full max-w-5xl mx-auto mt-6 md:mt-16 mb-8">
         
-        <a href="index.html" class="absolute -top-12 left-4 z-50 text-medIce hover:text-medPistachio text-lg transition-colors flex items-center gap-2">
+        <a href="index.html" class="absolute -top-10 md:-top-12 left-4 z-50 text-medIce hover:text-medPistachio text-sm md:text-lg transition-colors flex items-center gap-2">
             ← Return to Study
         </a>
 
-        <div id="persona-box" class="absolute -top-16 md:-top-12 -left-2 md:-left-8 z-50 bg-medNavyTeal/95 border-4 border-medPistachio p-4 rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] w-72 md:w-80 transition-all duration-300 opacity-0 scale-95 pointer-events-none">
-            <h1 class="text-xl md:text-2xl text-medPistachio glow-pistachio mb-2 border-b border-medIce/30 pb-2">Magister Madeline Beebe</h1>
-            <div class="grid grid-cols-2 gap-2 text-sm text-medCream">
+        <!-- STAGNANT PERSONA BOX (Scaled for mobile) -->
+        <div id="persona-box" class="absolute -top-8 md:-top-12 -left-0 md:-left-8 z-50 bg-medNavyTeal/95 border-2 md:border-4 border-medPistachio p-2 md:p-4 rounded-md md:rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] w-40 md:w-80 transition-all duration-300 opacity-0 scale-95 pointer-events-none">
+            <h1 class="text-[0.6rem] md:text-2xl text-medPistachio glow-pistachio mb-1 md:mb-2 border-b border-medIce/30 pb-1 md:pb-2">Magister Madeline Beebe</h1>
+            <div class="grid grid-cols-2 gap-1 md:gap-2 text-[0.45rem] md:text-sm text-medCream leading-tight">
                 <p><span class="text-medIce">Class:</span> Scholar</p>
                 <p><span class="text-medIce">Rank:</span> Magister</p>
                 <p class="col-span-2"><span class="text-medIce">Materia:</span> Cosmonautics & Analytics</p>
             </div>
         </div>
 
-        <div class="relative w-full aspect-square md:aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
+        <!-- Forces 16:9 aspect ratio and scales border on mobile -->
+        <div class="relative w-full aspect-[16/9] bg-medNavyTeal border-4 md:border-8 border-medOlive rounded-xl md:rounded-2xl box-glow overflow-hidden">
             
             <div class="room-wall"></div>
             <div class="room-floor"></div>
 
-            <div class="absolute top-[8%] left-[5%] w-[90%] h-[55%] flex gap-6 md:gap-12 z-10">
+            <div class="absolute top-[8%] left-[5%] w-[90%] h-[55%] flex gap-2 md:gap-12 z-10">
                 
                 <!-- LEFT BOOKCASE: SCHOLARIS -->
-                <div class="flex-1 bookcase flex flex-col justify-between p-2">
-                    <h2 class="text-center text-medPistachio font-bold text-xs md:text-sm tracking-widest border-b-2 border-medWood pb-1 mb-1 glow-pistachio">SCHOLARIS</h2>
+                <div class="flex-1 bookcase flex flex-col justify-between p-1 md:p-2">
+                    <h2 class="text-center text-medPistachio font-bold text-[0.45rem] md:text-sm tracking-widest border-b md:border-b-2 border-medWood pb-0.5 md:pb-1 mb-0.5 md:mb-1 glow-pistachio">SCHOLARIS</h2>
                     
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Cosmonautics</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Cosmonautics</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank IX</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank IX</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Arithmetic</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Arithmetic</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank X</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank X</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Technology</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Technology</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank XI</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank XI</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Strategy</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Strategy</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank XI</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank XI</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Coin</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Coin</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank VIII</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank VIII</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Building</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Building</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank V</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank V</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Prototyping</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Prototyping</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank V</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank V</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Scrolls</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Scrolls</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div><div class="book-scholaris"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-2 py-1 text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank IV</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medPistachio px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medPistachio whitespace-nowrap z-50 pointer-events-none">Rank IV</div>
                     </div>
                 </div>
 
                 <!-- RIGHT BOOKCASE: DYNAMICUS -->
-                <div class="flex-1 bookcase flex flex-col justify-between p-2">
-                    <h2 class="text-center text-medRose font-bold text-xs md:text-sm tracking-widest border-b-2 border-medWood pb-1 mb-1 glow-rose">DYNAMICUS</h2>
+                <div class="flex-1 bookcase flex flex-col justify-between p-1 md:p-2">
+                    <h2 class="text-center text-medRose font-bold text-[0.45rem] md:text-sm tracking-widest border-b md:border-b-2 border-medWood pb-0.5 md:pb-1 mb-0.5 md:mb-1 glow-rose">DYNAMICUS</h2>
                     
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Teamwork</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Teamwork</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank X</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank X</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Communication</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Communication</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank VIII</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank VIII</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Troop Mgmt</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Troop Mgmt</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank VI</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank VI</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Leadership</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Leadership</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank VI</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank VI</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Adventure</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Adventure</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank IV</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank IV</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Endurance</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Endurance</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank IV</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank IV</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Inclusion</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Inclusion</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank III</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank III</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Apprenticemaking</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Apprenticemaking</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank II</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank II</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Rowing</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Rowing</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank II</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank II</div>
                     </div>
 
-                    <div class="shelf-row group relative flex items-end justify-between pb-1 flex-1 cursor-pointer">
-                        <span class="text-[10px] md:text-xs text-medCream/70 ml-1">Strength</span>
-                        <div class="flex gap-[1px] md:gap-[2px] mr-1">
+                    <div class="shelf-row group relative flex items-end justify-between pb-0.5 md:pb-1 flex-1 cursor-pointer">
+                        <span class="text-[0.35rem] md:text-xs text-medCream/70 ml-1 leading-none">Strength</span>
+                        <div class="flex gap-[1px] md:gap-[2px] mr-1 items-end">
                             <div class="book-dynamicus"></div><div class="book-dynamicus"></div>
                         </div>
-                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-2 py-1 text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank II</div>
+                        <div class="absolute bottom-full mb-1 right-0 opacity-0 group-hover:opacity-100 bg-medNavyTeal border border-medRose px-1 md:px-2 py-0.5 md:py-1 text-[0.45rem] md:text-xs text-medRose whitespace-nowrap z-50 pointer-events-none">Rank II</div>
                     </div>
                 </div>
             </div>
 
             <!-- FOCAL POINT: AVATAR -->
-            <div class="absolute z-20 flex justify-center w-56 h-56 md:w-72 md:h-72 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]" style="bottom: 5%; left: 50%; transform: translateX(-50%);" onmouseenter="togglePersona(true)" onmouseleave="togglePersona(false)">
+            <div class="absolute z-20 flex justify-center w-24 h-24 md:w-72 md:h-72 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]" style="bottom: 5%; left: 50%; transform: translateX(-50%);" onmouseenter="togglePersona(true)" onmouseleave="togglePersona(false)">
                 <img src="assets/Main_Avatar.png" alt="Main Avatar" class="w-full h-full object-contain pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)]">
                 
-                <div id="lvl-badge" class="absolute top-4 right-8 md:top-8 md:right-12 bg-medRose text-medCream border border-medCream rounded px-2 py-0.5 text-xs md:text-sm font-bold glow-rose z-50 pointer-events-none shadow-md opacity-0 transition-opacity duration-300">
+                <div id="lvl-badge" class="absolute top-1 right-2 md:top-8 md:right-12 bg-medRose text-medCream border border-medCream rounded px-1 py-0 md:px-2 md:py-0.5 text-[0.5rem] md:text-sm font-bold glow-rose z-50 pointer-events-none shadow-md opacity-0 transition-opacity duration-300">
                     LVL 5
                 </div>
             </div>
@@ -312,7 +329,7 @@
     </div>
 
     <footer class="mt-4 pb-12 text-center w-full px-4">
-        <p class="text-medPistachio text-lg md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
+        <p class="text-medPistachio text-sm md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
             driving directive: leverage skills to become a realm force for good
         </p>
     </footer>

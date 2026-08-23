@@ -289,10 +289,22 @@
     </div>
 
     <script>
-        function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; }
-        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+    <script>
+        function openModal(modalId) { 
+            document.getElementById(modalId).style.display = 'flex'; 
+        }
+        
+        function closeModal(modalId) { 
+            document.getElementById(modalId).style.display = 'none'; 
+        }
+        
+        // This lets you close the modal by clicking anywhere in the dark background
         window.onclick = function(event) {
-            if (event.target.classList.contains('scroll-modal')) { event.target.style.display = 'none'; }
+            if (event.target.classList.contains('scroll-modal')) { 
+                event.target.style.display = 'none'; 
+            }
+        }
+    </script>
     </script>
 </body>
 </html>

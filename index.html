@@ -160,13 +160,18 @@
             
             <img src="assets/Lantern.png" alt="Lantern" class="room-decor w-10 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)]" style="top: 20%; left: 62%; transform: translateX(-50%);">
 
-            <div class="absolute z-20 flex justify-center w-56 h-56 md:w-72 md:h-72 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]" style="bottom: 25%; left: 50%; transform: translateX(-50%);" onmouseenter="toggleLevel(true)" onmouseleave="toggleLevel(false)">
+            <!-- FOCAL POINT: AVATAR VISUALS (Sits behind desk, pointer events disabled) -->
+            <div id="avatar-visuals" class="absolute z-20 flex justify-center w-56 h-56 md:w-72 md:h-72 transition-all duration-300 pointer-events-none" style="bottom: 25%; left: 50%; transform: translateX(-50%);">
                 <img src="assets/Main_Avatar.png" alt="Main Avatar" class="w-full h-full object-contain pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)]">
-                <div id="lvl-badge" class="absolute top-4 right-8 md:top-8 md:right-12 bg-medRose text-medCream border border-medCream rounded px-2 py-0.5 text-xs md:text-sm font-bold glow-rose z-50 pointer-events-none shadow-md opacity-0 transition-opacity duration-300">
+                
+                <div id="lvl-badge" class="absolute top-4 right-8 md:top-8 md:right-12 bg-medRose text-medCream border border-medCream rounded px-2 py-0.5 text-xs md:text-sm font-bold glow-rose z-50 shadow-md opacity-0 transition-opacity duration-300">
                     LVL 5
                 </div>
             </div>
 
+            <!-- FOCAL POINT: PHANTOM HITBOX (Sits in front of the desk just for hovering) -->
+            <div class="absolute z-[80] w-16 h-24 md:w-24 md:h-32 cursor-pointer rounded-full" style="bottom: 44%; left: 50%; transform: translateX(-50%);" onmouseenter="toggleLevel(true)" onmouseleave="toggleLevel(false)">
+            </div>
             <a href="academy.html" class="room-object" style="bottom: -8%; left: 50%; transform: translateX(-50%); z-index: 55;">
                 <img src="assets/Heavy_Desk.png" alt="Heavy Desk" class="w-56 md:w-80 pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.9)]">
                 <span style="position: absolute; bottom: 20%;">The Academy</span>
@@ -182,21 +187,25 @@
     </footer>
 
     <script>
-    function toggleLevel(show) {
-        const lvlBadge = document.getElementById('lvl-badge');
-        const personaBox = document.getElementById('persona-box');
-        if (show) {
-            lvlBadge.classList.remove('opacity-0');
-            lvlBadge.classList.add('opacity-100');
-            personaBox.classList.remove('opacity-0');
-            personaBox.classList.add('opacity-100');
-        } else {
-            lvlBadge.classList.add('opacity-0');
-            lvlBadge.classList.remove('opacity-100');
-            personaBox.classList.add('opacity-0');
-            personaBox.classList.remove('opacity-100');
+        function toggleLevel(show) {
+            const lvlBadge = document.getElementById('lvl-badge');
+            const personaBox = document.getElementById('persona-box');
+            const avatarVisuals = document.getElementById('avatar-visuals');
+            
+            if (show) {
+                lvlBadge.classList.remove('opacity-0');
+                lvlBadge.classList.add('opacity-100');
+                personaBox.classList.remove('opacity-0');
+                personaBox.classList.add('opacity-100');
+                avatarVisuals.classList.add('drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]');
+            } else {
+                lvlBadge.classList.add('opacity-0');
+                lvlBadge.classList.remove('opacity-100');
+                personaBox.classList.add('opacity-0');
+                personaBox.classList.remove('opacity-100');
+                avatarVisuals.classList.remove('drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]');
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>

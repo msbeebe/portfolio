@@ -111,11 +111,6 @@
 </head>
 <body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initInventory()">
 
-    <!-- Pouch -->
-    <div id="pouch" class="fixed top-6 right-6 bg-medWood border-2 border-medPistachio text-medPistachio px-4 py-2 rounded-xl z-50 shadow-lg flex items-center gap-2 text-2xl cursor-default">
-        <span>🪙</span> <span id="coin-count" class="glow-pistachio">0</span>
-    </div>
-
     <!-- CENTERED NAME (Above Diorama) -->
     <div class="w-full text-center mt-6 md:mt-2 mb-4">
         <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
@@ -170,17 +165,12 @@
                 </div>
 
             </div>
-
-            <!-- Hidden Coin -->
-            <button id="hidden-coin" onclick="collectCoin(event, this)" class="absolute text-3xl md:text-4xl opacity-0 hover:opacity-100 transition-all z-[100] drop-shadow-[0_0_15px_rgba(214,230,133,0.8)]" title="A hidden coin!">
-                🪙
-            </button>
         </div>
     </div>
 
     <footer class="mt-4 pb-12 text-center w-full px-4">
         <p class="text-medPistachio text-lg md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
-            driving directive: leverage skills to become a realm force for good.
+            driving directive: leverage skills to become a realm force for good
         </p>
     </footer>
 
@@ -206,27 +196,7 @@
             { id: "Art_Letter", name: "Letter of Love", date: "Collected Fall 2024", desc: "A vital tether holding correspondence and reminding the bearer of close-knit family ties and outposts across the realm." }
         ];
 
-        function initInventory() {
-            // Setup Coins
-            let coins = localStorage.getItem('agencia_coins') || 0;
-            document.getElementById('coin-count').innerText = coins;
-            spawnCoin();
-
-            // Setup Grid
-            const grid = document.getElementById('grid-container');
-            
-            artifacts.forEach((artifact, index) => {
-                const slot = document.createElement('div');
-                slot.className = 'inv-slot';
-                slot.innerHTML = `<img src="assets/${artifact.id}.png" alt="${artifact.name}" class="w-10 h-10 pixelated drop-shadow-md">`;
-                
-                // Add event listeners for interactivity
-                slot.addEventListener('mouseenter', () => updateInspector(index, slot));
-                slot.addEventListener('click', () => updateInspector(index, slot));
-                
-                grid.appendChild(slot);
-            });
-
+        
             // Fill remaining empty slots to make the grid look full (e.g., up to 24 slots)
             const emptySlotsNeeded = 24 - artifacts.length;
             for(let i=0; i < emptySlotsNeeded; i++) {
@@ -248,48 +218,6 @@
             document.getElementById('inspector-title').innerText = artifact.name;
             document.getElementById('inspector-date').innerText = artifact.date;
             document.getElementById('inspector-desc').innerText = artifact.desc;
-        }
-
-        function spawnCoin() {
-            const spawnPoints = [{ top: '15%', left: '8%' }, { bottom: '15%', right: '12%' }];
-            const coin = document.getElementById('hidden-coin');
-            const randomSpawn = spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
-            if (randomSpawn.top) coin.style.top = randomSpawn.top;
-            if (randomSpawn.bottom) coin.style.bottom = randomSpawn.bottom;
-            if (randomSpawn.left) coin.style.left = randomSpawn.left;
-            if (randomSpawn.right) coin.style.right = randomSpawn.right;
-        }
-
-        function collectCoin(event, element) {
-            const pouch = document.getElementById('pouch');
-            const ghostCoin = document.createElement('div');
-            ghostCoin.innerText = '🪙';
-            ghostCoin.style.position = 'fixed';
-            ghostCoin.style.left = event.clientX + 'px';
-            ghostCoin.style.top = event.clientY + 'px';
-            ghostCoin.style.fontSize = window.innerWidth < 768 ? '2rem' : '3rem';
-            ghostCoin.style.zIndex = '9999';
-            ghostCoin.style.pointerEvents = 'none';
-            ghostCoin.style.transition = 'all 0.7s cubic-bezier(0.25, 1, 0.5, 1)'; 
-            document.body.appendChild(ghostCoin);
-            element.style.display = 'none';
-
-            setTimeout(() => {
-                const pouchRect = pouch.getBoundingClientRect();
-                ghostCoin.style.left = (pouchRect.left + 20) + 'px';
-                ghostCoin.style.top = (pouchRect.top + 10) + 'px';
-                ghostCoin.style.transform = 'scale(0.5)';
-                ghostCoin.style.opacity = '0';
-            }, 20);
-
-            setTimeout(() => {
-                ghostCoin.remove();
-                let coins = parseInt(localStorage.getItem('agencia_coins') || 0) + 1;
-                localStorage.setItem('agencia_coins', coins);
-                document.getElementById('coin-count').innerText = coins;
-                pouch.classList.add('animate-pulse-gold');
-                setTimeout(() => pouch.classList.remove('animate-pulse-gold'), 500);
-            }, 720);
         }
     </script>
 </body>

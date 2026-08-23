@@ -108,10 +108,11 @@
     </div>
 
     <!-- MAIN DIORAMA WRAPPER -->
-    <div class="relative w-full max-w-5xl mx-auto mb-8">
-        
-        <div class="relative w-full aspect-square md:aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
-            
+    <!-- Added overflow-x-auto to allow mobile swiping -->
+    <div class="relative w-full max-w-5xl mx-auto mb-8 overflow-x-auto custom-scrollbar">
+    <!-- Changed to min-w-[800px] and locked aspect ratio to 16/9 -->
+    <div class="relative w-[800px] md:w-full aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden mx-auto">
+    
             <div class="room-wall"></div>
             <div class="room-floor"></div>
 

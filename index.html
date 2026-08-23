@@ -100,8 +100,7 @@
         .animate-pulse-gold { animation: goldPulse 0.5s ease-out; }
     </style>
 </head>
-<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initDashboard()">
-
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center">
     <!-- CENTERED NAME (Above Diorama) -->
     <div class="w-full text-center mt-6 md:mt-2 mb-4">
         <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
@@ -117,7 +116,8 @@
             <div class="room-floor"></div>
 
             <!-- STAGNANT PERSONA BOX (Bottom Left) -->
-            <div id="persona-box" class="absolute bottom-6 right-6 z-50 bg-medNavyTeal/95 border-4 border-medPistachio p-4 rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] w-64 md:w-80 cursor-default">
+            <!-- Added opacity-0, pointer-events-none, and transition-opacity -->
+            <div id="persona-box" class="absolute bottom-6 right-6 z-50 bg-medNavyTeal/95 border-4 border-medPistachio p-4 rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] w-64 md:w-80 cursor-default opacity-0 pointer-events-none transition-opacity duration-300">
                 <h1 class="text-lg md:text-xl text-medPistachio glow-pistachio mb-2 border-b border-medIce/30 pb-2">Magister Madeline Beebe</h1>
                 <div class="grid grid-cols-2 gap-2 text-xs md:text-sm text-medCream">
                     <p><span class="text-medIce">Class:</span> Scholar</p>
@@ -182,16 +182,21 @@
     </footer>
 
     <script>
-        function toggleLevel(show) {
-            const lvlBadge = document.getElementById('lvl-badge');
-            if (show) {
-                lvlBadge.classList.remove('opacity-0');
-                lvlBadge.classList.add('opacity-100');
-            } else {
-                lvlBadge.classList.add('opacity-0');
-                lvlBadge.classList.remove('opacity-100');
-            }
+    function toggleLevel(show) {
+        const lvlBadge = document.getElementById('lvl-badge');
+        const personaBox = document.getElementById('persona-box');
+        if (show) {
+            lvlBadge.classList.remove('opacity-0');
+            lvlBadge.classList.add('opacity-100');
+            personaBox.classList.remove('opacity-0');
+            personaBox.classList.add('opacity-100');
+        } else {
+            lvlBadge.classList.add('opacity-0');
+            lvlBadge.classList.remove('opacity-100');
+            personaBox.classList.add('opacity-0');
+            personaBox.classList.remove('opacity-100');
         }
-    </script>
+    }
+</script>
 </body>
 </html>

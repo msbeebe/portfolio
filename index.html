@@ -57,8 +57,6 @@
         }
 
         .room-object {
-            position: absolute;
-            z-index: 30;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
             display: flex;
@@ -69,27 +67,31 @@
             transform: scale(1.10) translateY(-3px);
             filter: drop-shadow(0 0 15px rgba(214,230,133,0.6));
         }
+        
+        /* Mobile-First Object Tooltips */
         .room-object span {
             opacity: 0;
             transition: opacity 0.3s;
-            margin-top: 4px;
+            margin-top: 2px;
             background-color: rgba(13, 27, 42, 0.9);
-            padding: 4px 8px;
+            padding: 2px 4px;
             border-radius: 4px;
             border: 1px solid #D6E685;
             white-space: nowrap;
             pointer-events: none;
             color: #D6E685;
-            font-size: 0.875rem;
+            font-size: 0.55rem;
             position: relative;
+            z-index: 100;
         }
-        .room-object:hover span {
-            opacity: 1;
-        }
+        .room-object:hover span { opacity: 1; }
 
-        .room-decor {
-            position: absolute;
-            pointer-events: none;
+        @media (min-width: 768px) {
+            .room-object span {
+                padding: 4px 8px;
+                font-size: 0.875rem;
+                margin-top: 4px;
+            }
         }
 
         @keyframes goldPulse {
@@ -107,60 +109,67 @@
         <h1 class="text-3xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
     </div>
 
-    <!-- MAIN DIORAMA WRAPPER (Shrink-to-fit applied) -->
+    <!-- MAIN DIORAMA WRAPPER -->
     <div class="relative w-full max-w-5xl mx-auto mt-4 md:mt-8 mb-8">
         
-        <!-- Forces 16:9 aspect ratio and scales border on mobile -->
-        <div class="relative w-full aspect-[16/9] bg-medNavyTeal border-4 md:border-8 border-medOlive rounded-xl md:rounded-2xl box-glow overflow-hidden">
+        <!-- ROOM BOX: Uses a taller 4:3 box on phones for vertical space, 16:9 on desktop -->
+        <div class="relative w-full aspect-[4/3] md:aspect-[16/9] bg-medNavyTeal border-4 md:border-8 border-medOlive rounded-xl md:rounded-2xl box-glow overflow-hidden">
     
             <div class="room-wall"></div>
             <div class="room-floor"></div>
 
-            <!-- STAGNANT PERSONA BOX (Bottom Right, perfectly scaled for mobile) -->
-            <div id="persona-box" class="absolute bottom-2 md:bottom-6 right-2 md:right-6 z-50 bg-medNavyTeal/95 border-2 md:border-4 border-medPistachio p-2 md:p-4 rounded-md md:rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] w-36 md:w-80 cursor-default">
-                <h1 class="text-[0.55rem] md:text-xl text-medPistachio glow-pistachio mb-1 md:mb-2 border-b border-medIce/30 pb-1 md:pb-2">Magister Madeline Beebe</h1>
-                <div class="grid grid-cols-2 gap-1 md:gap-2 text-[0.45rem] md:text-sm text-medCream leading-tight">
+            <!-- HIDDEN PERSONA BOX (Appears on Avatar Tap) -->
+            <div id="persona-box" class="absolute top-2 right-2 md:top-auto md:bottom-6 md:right-6 z-[100] bg-medNavyTeal/95 border-2 md:border-4 border-medPistachio p-2 md:p-4 rounded-md md:rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.9)] w-40 md:w-80 opacity-0 pointer-events-none transition-opacity duration-300">
+                <h1 class="text-[0.6rem] md:text-xl text-medPistachio glow-pistachio mb-1 md:mb-2 border-b border-medIce/30 pb-1 md:pb-2">Magister Madeline Beebe</h1>
+                <div class="grid grid-cols-2 gap-1 md:gap-2 text-[0.5rem] md:text-sm text-medCream leading-tight">
                     <p><span class="text-medIce">Class:</span> Scholar</p>
                     <p><span class="text-medIce">Rank:</span> Magister</p>
                     <p class="col-span-2"><span class="text-medIce">Materia:</span> Cosmonautics & Analytics</p>
                 </div>
             </div>
 
-            <!-- RIGHT QUADRANT -->
-            <img src="assets/New_Window.png" alt="Window" class="room-decor w-20 md:w-56 pixelated z-10 opacity-90" style="top: 24%; right: 14%; z-index: 55">
+            <!-- ========================================== -->
+            <!-- RIGHT QUADRANT                             -->
+            <!-- ========================================== -->
+            <img src="assets/New_Window.png" alt="Window" class="absolute pointer-events-none w-20 md:w-56 pixelated z-10 opacity-90 top-[5%] right-[5%] md:top-[24%] md:right-[14%]">
             
-            <a href="skills.html" class="room-object" style="bottom: 16%; right: -3%; z-index: 55;">
-                <img src="assets/Bookshelf.png" alt="Bookshelf" class="w-20 md:w-56 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
-                <span style="margin-top: -20px;">Skill Tree</span>
+            <a href="skills.html" class="absolute room-object z-[55] top-[25%] right-[2%] md:top-auto md:bottom-[16%] md:-right-[3%]">
+                <img src="assets/Bookshelf.png" alt="Bookshelf" class="w-16 md:w-56 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
+                <span class="-mt-2 md:-mt-5">Skill Tree</span>
             </a>
             
-            <a href="campaign.html" class="room-object" style="bottom: 2%; left: 0%; z-index: 50;">
-                <img src="assets/Spellbook_Pedestal.png" alt="Spellbook" class="w-16 md:w-48 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
-                <span style="margin-top: -20px;">Campaign Log</span>
+            <a href="campaign.html" class="absolute room-object z-[50] bottom-[5%] right-[10%] md:bottom-[2%] md:right-auto md:left-[60%]">
+                <img src="assets/Spellbook_Pedestal.png" alt="Spellbook" class="w-14 md:w-48 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
+                <span class="-mt-2 md:-mt-5">Campaign Log</span>
             </a>
 
-            <!-- LEFT QUADRANT -->
-            <a href="map.html" class="room-object" style="top: 20%; left: 5%; z-index: 75;">
-                <img src="assets/Wall_Map.png" alt="Map" class="w-16 md:w-40 pixelated drop-shadow-xl">
+            <!-- ========================================== -->
+            <!-- LEFT QUADRANT                              -->
+            <!-- ========================================== -->
+            <a href="map.html" class="absolute room-object z-[75] top-[5%] left-[5%] md:top-[20%] md:left-[5%]">
+                <img src="assets/Wall_Map.png" alt="Map" class="w-14 md:w-40 pixelated drop-shadow-xl">
                 <span>Overworld Map</span>
             </a>
             
-            <a href="sidequests.html" class="room-object" style="top: 15%; left: 20%; z-index: 55;">
-                <img src="assets/Quest_Board.png" alt="Quest Board" class="w-12 md:w-36 pixelated drop-shadow-xl">
-                <span style="margin-top: -20px;">Side Quests</span>
+            <a href="sidequests.html" class="absolute room-object z-[55] top-[30%] left-[10%] md:top-[15%] md:left-[20%]">
+                <img src="assets/Quest_Board.png" alt="Quest Board" class="w-10 md:w-36 pixelated drop-shadow-xl">
+                <span class="-mt-2 md:-mt-5">Side Quests</span>
             </a>
             
-            <a href="inventory.html" class="room-object" style="bottom: 16%; left: 24%; transform: translateX(-50%); z-index: 55;">
+            <a href="inventory.html" class="absolute room-object z-[55] bottom-[8%] left-[12%] md:bottom-[16%] md:left-[24%] md:-translate-x-1/2">
                 <img src="assets/Wooden_Chest.png" alt="Chest" class="w-16 md:w-40 pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
                 <span>Artifact Inventory</span>
             </a>
 
-            <!-- CENTER QUADRANT -->
-            <img src="assets/Lantern.png" alt="Lantern" class="room-decor w-5 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)]" style="top: 20%; left: 38%; transform: translateX(-50%);">
+            <!-- ========================================== -->
+            <!-- CENTER QUADRANT                            -->
+            <!-- ========================================== -->
+            <img src="assets/Lantern.png" alt="Lantern" class="absolute pointer-events-none w-5 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)] top-[15%] left-[38%] md:top-[20%] -translate-x-1/2">
             
-            <img src="assets/Lantern.png" alt="Lantern" class="room-decor w-5 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)]" style="top: 20%; left: 62%; transform: translateX(-50%);">
+            <img src="assets/Lantern.png" alt="Lantern" class="absolute pointer-events-none w-5 md:w-16 pixelated z-10 animate-pulse drop-shadow-[0_0_15px_rgba(245,237,185,0.6)] top-[15%] left-[62%] md:top-[20%] -translate-x-1/2">
 
-            <div class="absolute z-20 flex justify-center w-28 h-28 md:w-72 md:h-72 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(214,230,133,0.8)]" style="bottom: 25%; left: 50%; transform: translateX(-50%);" onmouseenter="toggleLevel(true)" onmouseleave="toggleLevel(false)">
+            <!-- FOCAL POINT: AVATAR -->
+            <div class="absolute z-[40] flex justify-center w-24 h-24 md:w-72 md:h-72 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(214,230,133,0.8)] bottom-[20%] left-1/2 md:bottom-[25%] -translate-x-1/2" onmouseenter="togglePersona(true)" onmouseleave="togglePersona(false)" onclick="togglePersona(true)">
                 <img src="assets/Main_Avatar.png" alt="Main Avatar" class="w-full h-full object-contain pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)]">
                 
                 <div id="lvl-badge" class="absolute top-1 right-2 md:top-8 md:right-12 bg-medRose text-medCream border border-medCream rounded px-1 py-0 md:px-2 md:py-0.5 text-[0.5rem] md:text-sm font-bold glow-rose z-50 pointer-events-none shadow-md opacity-0 transition-opacity duration-300">
@@ -168,9 +177,10 @@
                 </div>
             </div>
 
-            <a href="academy.html" class="room-object" style="bottom: -8%; left: 50%; transform: translateX(-50%); z-index: 55;">
-                <img src="assets/Heavy_Desk.png" alt="Heavy Desk" class="w-32 md:w-80 pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.9)]">
-                <span style="position: absolute; bottom: 20%;">The Academy</span>
+            <!-- THE DESK -->
+            <a href="academy.html" class="absolute room-object z-[60] bottom-[-2%] left-1/2 md:bottom-[-8%] -translate-x-1/2">
+                <img src="assets/Heavy_Desk.png" alt="Heavy Desk" class="w-36 md:w-80 pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.9)]">
+                <span class="absolute bottom-[20%]">The Academy</span>
             </a>
             
         </div>
@@ -183,12 +193,17 @@
     </footer>
 
     <script>
-        function toggleLevel(show) {
+        function togglePersona(show) {
+            const personaBox = document.getElementById('persona-box');
             const lvlBadge = document.getElementById('lvl-badge');
             if (show) {
+                personaBox.classList.remove('opacity-0');
+                personaBox.classList.add('opacity-100');
                 lvlBadge.classList.remove('opacity-0');
                 lvlBadge.classList.add('opacity-100');
             } else {
+                personaBox.classList.add('opacity-0');
+                personaBox.classList.remove('opacity-100');
                 lvlBadge.classList.add('opacity-0');
                 lvlBadge.classList.remove('opacity-100');
             }

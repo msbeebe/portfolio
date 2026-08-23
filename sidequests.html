@@ -69,18 +69,20 @@
             transform: scale(1.10) translateY(-5px);
             filter: drop-shadow(0 0 15px rgba(214,230,133,0.6));
         }
+        
+        /* Mobile-First Object Labels */
         .room-object span {
             opacity: 0;
             transition: opacity 0.3s;
-            margin-top: 4px;
+            margin-top: 2px;
             background-color: rgba(13, 27, 42, 0.9);
-            padding: 4px 8px;
+            padding: 2px 4px;
             border-radius: 4px;
             border: 1px solid #D6E685;
             white-space: nowrap;
             pointer-events: none;
             color: #D6E685;
-            font-size: 0.875rem;
+            font-size: 0.5rem; /* Scaled down for mobile */
             position: relative;
         }
         .room-object:hover span {
@@ -89,16 +91,18 @@
 
         .bookcase {
             background-color: #1a100e;
-            border: 6px solid #3e2723;
-            box-shadow: 10px 10px 20px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.9);
+            border: 4px solid #3e2723;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.7), inset 0 0 10px rgba(0,0,0,0.9);
             z-index: 10;
         }
         .shelf-row {
-            border-bottom: 4px solid #3e2723;
-            box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+            border-bottom: 2px solid #3e2723;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.5);
         }
+
+        /* Mobile-First Books */
         .reading-book {
-            width: 12px; height: 36px;
+            width: 6px; height: 18px;
             background-color: #B9D6E5;
             border: 1px solid #0d1b2a;
             border-radius: 1px;
@@ -106,15 +110,16 @@
             cursor: pointer;
             position: relative;
         }
-        .reading-book:nth-child(even) { background-color: #D06D9C; height: 24px; }
-        .reading-book:nth-child(3n) { background-color: #D6E685; height: 26px; }
-        .reading-book:nth-child(4n) { background-color: #698F3D; height: 30px; }
-
+        .reading-book:nth-child(even) { background-color: #D06D9C; height: 12px; }
+        .reading-book:nth-child(3n) { background-color: #D6E685; height: 14px; }
+        .reading-book:nth-child(4n) { background-color: #698F3D; height: 16px; }
         .reading-book:hover {
-            box-shadow: 0 0 12px #F5EDB9;
-            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 0 8px #F5EDB9;
+            transform: translateY(-2px) scale(1.1);
             z-index: 50;
         }
+
+        /* Mobile-First Book Tooltips */
         .book-tooltip {
             opacity: 0;
             position: absolute;
@@ -124,9 +129,9 @@
             background-color: #0d1b2a;
             border: 1px solid #F5EDB9;
             color: #F5EDB9;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 2px;
+            font-size: 0.45rem;
             white-space: nowrap;
             pointer-events: none;
             transition: opacity 0.2s;
@@ -134,6 +139,26 @@
         }
         .reading-book:hover .book-tooltip { opacity: 1; }
 
+        /* Desktop Adjustments for Books, Labels, and Bookcases */
+        @media (min-width: 768px) {
+            .bookcase {
+                border-width: 6px;
+                box-shadow: 10px 10px 20px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.9);
+            }
+            .shelf-row {
+                border-bottom-width: 4px;
+                box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+            }
+            .reading-book { width: 12px; height: 36px; }
+            .reading-book:nth-child(even) { height: 24px; }
+            .reading-book:nth-child(3n) { height: 26px; }
+            .reading-book:nth-child(4n) { height: 30px; }
+            .reading-book:hover { box-shadow: 0 0 12px #F5EDB9; transform: translateY(-4px) scale(1.1); }
+            .book-tooltip { padding: 6px 10px; border-radius: 4px; font-size: 0.75rem; }
+            .room-object span { padding: 4px 8px; font-size: 0.875rem; margin-top: 4px; }
+        }
+
+        /* Modal Styles */
         .scroll-modal {
             display: none;
             position: fixed;
@@ -174,29 +199,32 @@
         .animate-pulse-gold { animation: goldPulse 0.5s ease-out; }
     </style>
 </head>
-<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initDashboard()">
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center">
 
    <!-- CENTERED NAME (Above Diorama) -->
     <div class="w-full text-center mt-6 md:mt-2 mb-4">
-        <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
+        <!-- Scaled down for mobile -->
+        <h1 class="text-3xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
     </div>
 
-    <div class="relative w-full max-w-6xl mx-auto mt-20 md:mt-12 mb-8">
+    <!-- MAIN DIORAMA WRAPPER (Shrink-to-fit applied) -->
+    <div class="relative w-full max-w-6xl mx-auto mt-6 md:mt-12 mb-8">
         
-        <a href="index.html" class="absolute -top-12 left-4 z-50 text-medIce hover:text-medPistachio text-lg transition-colors flex items-center gap-2">
+        <a href="index.html" class="absolute -top-10 md:-top-12 left-4 z-50 text-medIce hover:text-medPistachio text-sm md:text-lg transition-colors flex items-center gap-2">
             ← Return to Study
         </a>
 
-        <div class="relative w-full aspect-square md:aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
+        <!-- Forces 16:9 aspect ratio and scales border on mobile -->
+        <div class="relative w-full aspect-[16/9] bg-medNavyTeal border-4 md:border-8 border-medOlive rounded-xl md:rounded-2xl box-glow overflow-hidden">
             
             <div class="room-wall"></div>
             <div class="room-floor"></div>
 
             <!-- QUADRANT 1 (LEFT): WRITTEN REALMS SHELF -->
-            <div class="absolute top-[10%] left-[4%] w-[25%] h-[75%] bookcase flex flex-col justify-between p-3">
-                <h2 class="text-center text-medPistachio font-bold text-sm tracking-widest border-b-2 border-medWood pb-2 mb-2 glow-pistachio">THIS YEAR'S WRITTEN REALMS</h2>
+            <div class="absolute top-[10%] left-[4%] w-[25%] h-[75%] bookcase flex flex-col justify-between p-1.5 md:p-3">
+                <h2 class="text-center text-medPistachio font-bold text-[0.35rem] md:text-sm tracking-widest border-b md:border-b-2 border-medWood pb-1 md:pb-2 mb-1 md:mb-2 glow-pistachio leading-tight">THIS YEAR'S WRITTEN REALMS</h2>
                 
-                <div class="shelf-row flex items-end justify-center gap-1 pb-1 flex-1">
+                <div class="shelf-row flex items-end justify-center gap-0.5 md:gap-1 pb-0.5 md:pb-1 flex-1">
                     <div class="reading-book"><div class="book-tooltip"><strong>The Poppy War</strong><br>by R.F. Kuang</div></div>
                     <div class="reading-book"><div class="book-tooltip"><strong>Trial of the Sun Queen</strong><br>by Nisha J. Tuli</div></div>
                     <div class="reading-book"><div class="book-tooltip"><strong>Rule of the Aurora King</strong><br>by Nisha J. Tuli</div></div>
@@ -207,7 +235,7 @@
                     <div class="reading-book"><div class="book-tooltip"><strong>The Penderwicks</strong><br>by Jeanne Birdsall</div></div>
                 </div>
 
-                <div class="shelf-row flex items-end justify-center gap-1 pb-1 flex-1">
+                <div class="shelf-row flex items-end justify-center gap-0.5 md:gap-1 pb-0.5 md:pb-1 flex-1">
                     <div class="reading-book"><div class="book-tooltip"><strong>The Soulmate Equation</strong><br>by Christina Lauren</div></div>
                     <div class="reading-book"><div class="book-tooltip"><strong>Katabasis</strong><br>by R.F.Kuang</div></div>
                     <div class="reading-book"><div class="book-tooltip"><strong>The Dutch House</strong><br>by Ann Patchett</div></div>
@@ -217,7 +245,7 @@
                     <div class="reading-book"><div class="book-tooltip"><strong>Mostly What God Does</strong><br>by Savannah Guthrie</div></div>
                 </div>
 
-                <div class="shelf-row flex items-end justify-center gap-1 pb-1 flex-1">
+                <div class="shelf-row flex items-end justify-center gap-0.5 md:gap-1 pb-0.5 md:pb-1 flex-1">
                     <div class="reading-book"><div class="book-tooltip"><strong>The End of Loneliness</strong><br>by Benedict Wells</div></div>
                     <div class="reading-book"><div class="book-tooltip"><strong>My Name is Lucy Barton</strong><br>by Elizabeth Strout</div></div>
                     <div class="reading-book"><div class="book-tooltip"><strong>Careless People</strong><br>by Sarah Churchwell</div></div>
@@ -229,28 +257,28 @@
             </div>
 
             <!-- QUADRANT 2 (CENTER): EXPLORATION MAPS -->
-            <img src="assets/New_Window.png" alt="Window" class="absolute w-72 md:w-84 pixelated z-10 opacity-90" style="top: 10%; left: 50%; transform: translateX(-50%);">
+            <img src="assets/New_Window.png" alt="Window" class="absolute w-32 md:w-84 pixelated z-10 opacity-90" style="top: 10%; left: 50%; transform: translateX(-50%);">
             
             <div class="room-object" style="top: 25%; left: 29%;" onclick="openModal('portoModal')">
-                <img src="assets/Wall_Map.png" alt="Map" class="w-20 md:w-28 pixelated drop-shadow-xl">
-                <span>Porto Harbor Town</span>
+                <img src="assets/Wall_Map.png" alt="Map" class="w-10 md:w-28 pixelated drop-shadow-xl">
+                <span class="-mt-1 md:-mt-2">Porto Harbor Town</span>
             </div>
 
             <div class="room-object" style="top: 25%; right: 20%; transform: translateX(-100%);" onclick="openModal('southModal')">
-                <img src="assets/Wall_Map.png" alt="Map" class="w-20 md:w-28 pixelated drop-shadow-xl" style="transform: scaleX(-1);">
-                <span>Cancun Harbor</span>
+                <img src="assets/Wall_Map.png" alt="Map" class="w-10 md:w-28 pixelated drop-shadow-xl" style="transform: scaleX(-1);">
+                <span class="-mt-1 md:-mt-2">Cancun Harbor</span>
             </div>
 
             <!-- QUADRANT 3 (RIGHT): DESK & AVATAR -->
-            <div class="absolute z-20 flex justify-center w-48 h-48 md:w-64 md:h-64 pointer-events-none" style="bottom: 25%; right: 10%;">
+            <div class="absolute z-20 flex justify-center w-24 h-24 md:w-64 md:h-64 pointer-events-none" style="bottom: 25%; right: 10%;">
                 <img src="assets/Main_Avatar.png" alt="Main Avatar" class="w-full h-full object-contain pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)]">
             </div>
 
             <div class="absolute z-30" style="bottom: 2%; right: 8%;">
-                <img src="assets/Heavy_Desk.png" alt="Desk" class="w-48 md:w-72 pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.9)]">
+                <img src="assets/Heavy_Desk.png" alt="Desk" class="w-24 md:w-72 pixelated drop-shadow-[0_15px_15px_rgba(0,0,0,0.9)]">
                 
                 <a href="conservatory.html" class="room-object" style="top: 62%; right: -6%; z-index: 60;">
-                    <img src="assets/Potted_Plant.png" alt="Plant" class="w-20 md:w-28 pixelated drop-shadow-lg">
+                    <img src="assets/Potted_Plant.png" alt="Plant" class="w-10 md:w-28 pixelated drop-shadow-lg">
                     <span>Conservatory of Ideation</span>
                 </a>
 
@@ -259,36 +287,37 @@
     </div>
 
     <footer class="mt-4 pb-12 text-center w-full px-4">
-        <p class="text-medPistachio text-lg md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
+        <p class="text-medPistachio text-sm md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
             driving directive: leverage skills to become a realm force for good
         </p>
     </footer>
+
     <!-- SCROLL MODALS -->
     <div id="portoModal" class="scroll-modal">
-        <div class="scroll-content p-8 md:p-12">
+        <div class="scroll-content p-6 md:p-12">
             <span class="close-modal" onclick="closeModal('portoModal')">X</span>
-            <h2 class="text-3xl text-medRose mb-4 border-b-2 border-medWood pb-2">Porto Harbor Town</h2>
-            <p class="text-lg italic mb-6">European Realm Exploration • Summer 2024</p>
+            <h2 class="text-xl md:text-3xl text-medRose mb-2 md:mb-4 border-b-2 border-medWood pb-2">Porto Harbor Town</h2>
+            <p class="text-sm md:text-lg italic mb-4 md:mb-6">European Realm Exploration • Summer 2024</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <img src="assets/Porto3.JPG" alt="Porto Exploration 1" class="aspect-video object-cover w-full border-4 border-medWood rounded-sm shadow-md">
-                <img src="assets/Porto2.JPG" alt="Porto Exploration 2" class="aspect-video object-cover w-full border-4 border-medWood rounded-sm shadow-md">
+                <img src="assets/Porto3.JPG" alt="Porto Exploration 1" class="aspect-video object-cover w-full border-2 md:border-4 border-medWood rounded-sm shadow-md">
+                <img src="assets/Porto2.JPG" alt="Porto Exploration 2" class="aspect-video object-cover w-full border-2 md:border-4 border-medWood rounded-sm shadow-md">
             </div>
         </div>
     </div>
 
     <div id="southModal" class="scroll-modal">
-        <div class="scroll-content p-8 md:p-12">
+        <div class="scroll-content p-6 md:p-12">
             <span class="close-modal" onclick="closeModal('southModal')">X</span>
-            <h2 class="text-3xl text-medRose mb-4 border-b-2 border-medWood pb-2">Cancun Harbor</h2>
-            <p class="text-lg italic mb-6">Southern Realm Exploration • Summer 2025</p>
+            <h2 class="text-xl md:text-3xl text-medRose mb-2 md:mb-4 border-b-2 border-medWood pb-2">Cancun Harbor</h2>
+            <p class="text-sm md:text-lg italic mb-4 md:mb-6">Southern Realm Exploration • Summer 2025</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <img src="assets/Mexico1.JPG" alt="Cancun Exploration 1" class="aspect-video object-cover w-full border-4 border-medWood rounded-sm shadow-md">
-                <img src="assets/Mexico2.JPG" alt="Cancun Exploration 2" class="aspect-video object-cover w-full border-4 border-medWood rounded-sm shadow-md">
+                <img src="assets/Mexico1.JPG" alt="Cancun Exploration 1" class="aspect-video object-cover w-full border-2 md:border-4 border-medWood rounded-sm shadow-md">
+                <img src="assets/Mexico2.JPG" alt="Cancun Exploration 2" class="aspect-video object-cover w-full border-2 md:border-4 border-medWood rounded-sm shadow-md">
             </div>
         </div>
     </div>
 
-    <script>
+    <!-- The fixed, valid script block -->
     <script>
         function openModal(modalId) { 
             document.getElementById(modalId).style.display = 'flex'; 
@@ -304,7 +333,6 @@
                 event.target.style.display = 'none'; 
             }
         }
-    </script>
     </script>
 </body>
 </html>

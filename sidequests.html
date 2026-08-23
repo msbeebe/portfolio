@@ -174,8 +174,7 @@
         .animate-pulse-gold { animation: goldPulse 0.5s ease-out; }
     </style>
 </head>
-<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initDashboard()">
-
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center">
    <!-- CENTERED NAME (Above Diorama) -->
     <div class="w-full text-center mt-6 md:mt-2 mb-4">
         <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
@@ -289,22 +288,20 @@
     </div>
 
     <script>
-    <script>
-        function openModal(modalId) { 
-            document.getElementById(modalId).style.display = 'flex'; 
+    function openModal(modalId) { 
+        document.getElementById(modalId).style.display = 'flex'; 
+    }
+
+    function closeModal(modalId) { 
+        document.getElementById(modalId).style.display = 'none'; 
+    }
+
+    // This lets you close the modal by clicking anywhere in the dark background
+    window.onclick = function(event) {
+        if (event.target.classList.contains('scroll-modal')) { 
+            event.target.style.display = 'none'; 
         }
-        
-        function closeModal(modalId) { 
-            document.getElementById(modalId).style.display = 'none'; 
-        }
-        
-        // This lets you close the modal by clicking anywhere in the dark background
-        window.onclick = function(event) {
-            if (event.target.classList.contains('scroll-modal')) { 
-                event.target.style.display = 'none'; 
-            }
-        }
-    </script>
-    </script>
+    }
+</script>
 </body>
 </html>

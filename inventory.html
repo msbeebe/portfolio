@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artifact Inventory | Madeline Beebe</title>
@@ -19,7 +18,8 @@
                         medPistachio: '#D6E685',
                         medRose: '#D06D9C',
                         medCream: '#F5EDB9',
-                        medWood: '#3e2723'
+                        medWood: '#3e2723',
+                        medDarkWood: '#251613'
                     },
                     fontFamily: { medieval: ['"MedievalSharp"', 'cursive'] }
                 }
@@ -39,6 +39,7 @@
         .box-glow { box-shadow: 0 0 30px rgba(13, 27, 42, 0.8); }
         .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
         
+        /* Diorama Background */
         .room-wall {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 65%;
@@ -54,45 +55,51 @@
             box-shadow: inset 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        .artifact-shelf {
-            border-bottom: 16px solid #251613;
-            border-top: 4px solid #4a2f2a;
-            box-shadow: 0 15px 20px rgba(0,0,0,0.8);
-            background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,0.4));
+        /* Inventory Slots */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+            gap: 12px;
+            padding: 16px;
+            background-color: rgba(13, 27, 42, 0.8);
+            border: 4px solid #3e2723;
+            border-radius: 8px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+            overflow-y: auto;
         }
-
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        .artifact-item {
-            animation: gentleFloat 4s ease-in-out infinite;
-            transition: filter 0.3s, transform 0.3s;
+        .inv-slot {
+            width: 64px; height: 64px;
+            background-color: #1a2f3a;
+            border: 2px solid #251613;
+            border-bottom-color: #5a3b34;
+            border-right-color: #5a3b34;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
+            transition: all 0.2s;
         }
-        .artifact-item:hover {
-            filter: drop-shadow(0 0 15px rgba(214,230,133,0.8));
-            animation-play-state: paused;
+        .inv-slot:hover, .inv-slot.active {
+            background-color: #2a4b5e;
+            border-color: #D6E685;
+            box-shadow: 0 0 10px rgba(214, 230, 133, 0.5), inset 0 0 10px rgba(0,0,0,0.5);
+            transform: scale(1.05);
+        }
+        
+        /* Inspector Panel */
+        .inspector-panel {
+            background-color: #F5EDB9;
+            border: 6px solid #3e2723;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.7), inset 0 0 30px rgba(140, 90, 53, 0.2);
+            color: #251613;
         }
 
-        .artifact-tooltip {
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: translateY(10px);
-            pointer-events: none;
-            position: absolute;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 50;
-        }
-        .artifact-container:hover .artifact-tooltip {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+        /* Custom Scrollbar for Grid */
+        .inventory-grid::-webkit-scrollbar { width: 8px; }
+        .inventory-grid::-webkit-scrollbar-track { background: #1a2f3a; }
+        .inventory-grid::-webkit-scrollbar-thumb { background: #3e2723; border-radius: 4px; }
+        .inventory-grid::-webkit-scrollbar-thumb:hover { background: #5a3b34; }
 
         @keyframes goldPulse {
             0% { transform: scale(1); box-shadow: 0 0 0 rgba(214,230,133,0); }
@@ -104,179 +111,67 @@
 </head>
 <body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initInventory()">
 
-    <div class="fixed top-6 left-6 z-50 text-2xl md:text-3xl text-medCream glow-ice pointer-events-none tracking-widest">
-        Madeline Beebe
-    </div>
-
+    <!-- Pouch -->
     <div id="pouch" class="fixed top-6 right-6 bg-medWood border-2 border-medPistachio text-medPistachio px-4 py-2 rounded-xl z-50 shadow-lg flex items-center gap-2 text-2xl cursor-default">
         <span>🪙</span> <span id="coin-count" class="glow-pistachio">0</span>
     </div>
 
-    <div class="relative w-full max-w-5xl mx-auto mt-20 md:mt-16 mb-8">
+    <!-- CENTERED NAME (Above Diorama) -->
+    <div class="w-full text-center mt-6 md:mt-2 mb-4">
+        <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
+    </div>
+
+    <div class="relative w-full max-w-5xl mx-auto mb-8">
         
         <a href="index.html" class="absolute -top-12 left-4 z-50 text-medIce hover:text-medPistachio text-lg transition-colors flex items-center gap-2">
             ← Return to Study
         </a>
 
-        <div class="relative w-full aspect-square md:aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
+        <!-- MAIN DIORAMA BOX -->
+        <div class="relative w-full aspect-square md:aspect-[16/9] border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
             
             <div class="room-wall"></div>
             <div class="room-floor"></div>
 
-            <div class="absolute top-6 w-full text-center z-10 pointer-events-none">
-                <h1 class="text-3xl md:text-4xl text-medPistachio glow-pistachio tracking-widest uppercase">The Vault of Relics</h1>
+            <div class="absolute top-4 w-full text-center z-10 pointer-events-none">
+                <h1 class="text-2xl md:text-3xl text-medPistachio glow-pistachio tracking-widest uppercase">Artifact Inventory</h1>
             </div>
 
-            <!-- TOP SHELF (Scrolls Left) -->
-            <div class="absolute top-[30%] left-0 w-full z-20">
-                <div id="shelf-1" class="flex overflow-x-auto hide-scrollbar gap-12 md:gap-20 px-[50%] py-4 cursor-grab active:cursor-grabbing select-none artifact-shelf w-full items-end h-32">
-                    
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Fellowship.png" alt="Fixture of Fellowship" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 0s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Fixture of Fellowship</h3>
-                            <p class="text-medIce text-xs">Collected Fall 2022</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Pres.png" alt="Presidential Gavel" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 0.4s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Presidential Gavel</h3>
-                            <p class="text-medIce text-xs">Collected Spring 2025</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Potion.png" alt="Potion of Disillusionment" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 0.8s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Potion of Disillusionment</h3>
-                            <p class="text-medIce text-xs">Collected Summer 2026</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Cosmo.png" alt="Cosmonautia Telescope" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 1.2s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Cosmonautia Telescope</h3>
-                            <p class="text-medIce text-xs">Collected Spring 2023</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Crystal.png" alt="Symphonic Crystal" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 1.6s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Symphonic Crystal</h3>
-                            <p class="text-medIce text-xs">Collected Summer 2026</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_RFID.png" alt="RFID Transmitter" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 2.0s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">RFID Transmitter</h3>
-                            <p class="text-medIce text-xs">Collected Summer 2024</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Saddle.png" alt="Saddle of Commuting" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 2.4s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Saddle of Commuting</h3>
-                            <p class="text-medIce text-xs">Collected Fall 2025</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Shield.png" alt="Flying Shield and Sword" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 2.8s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Flying Shield & Sword</h3>
-                            <p class="text-medIce text-xs">Collected Spring 2026</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Oar.png" alt="Oar of Strength" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 3.2s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Oar of Strength</h3>
-                            <p class="text-medIce text-xs">Collected Fall 2025</p>
-                        </div>
-                    </div>
-
+            <!-- INVENTORY UI OVERLAY -->
+            <div class="absolute inset-0 z-20 flex flex-col md:flex-row p-6 md:p-12 pt-16 md:pt-20 gap-6 h-full">
+                
+                <!-- LEFT: The Item Grid -->
+                <div class="w-full md:w-3/5 h-48 md:h-full inventory-grid" id="grid-container">
+                    <!-- Slots will be injected here by JavaScript -->
                 </div>
-            </div>
 
-            <!-- BOTTOM SHELF (Scrolls Right) -->
-            <div class="absolute top-[65%] left-0 w-full z-30">
-                <div id="shelf-2" class="flex overflow-x-auto hide-scrollbar gap-12 md:gap-20 px-[50%] py-4 cursor-grab active:cursor-grabbing select-none artifact-shelf w-full items-end h-32">
+                <!-- RIGHT: The Inspector Panel -->
+                <div class="w-full md:w-2/5 h-full inspector-panel rounded-lg p-6 flex flex-col items-center text-center relative">
                     
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Spec.png" alt="Spectacles of Healing" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 0.2s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Spectacles of Healing</h3>
-                            <p class="text-medIce text-xs">Collected Summer 2024</p>
-                        </div>
-                    </div>
+                    <!-- Decorative Corners -->
+                    <div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-medWood"></div>
+                    <div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-medWood"></div>
+                    <div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-medWood"></div>
+                    <div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-medWood"></div>
 
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Pen.png" alt="Pen of Creativity" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 0.6s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Pen of Creativity</h3>
-                            <p class="text-medIce text-xs">Collected Summer 2026</p>
-                        </div>
+                    <!-- Dynamic Content -->
+                    <div id="inspector-icon" class="w-24 h-24 mb-4 mt-2 flex justify-center items-center">
+                        <!-- Placeholder -->
+                        <span class="text-5xl opacity-20">?</span>
                     </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Pencil.png" alt="Pencil of Arithmetic" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 1.0s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Pencil of Arithmetic</h3>
-                            <p class="text-medIce text-xs">Collected Fall 2024</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Key.png" alt="Key to the Academy" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 1.4s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Key to the Academy</h3>
-                            <p class="text-medIce text-xs">Collected Fall 2022</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Medal.png" alt="Scholarly Medal" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 1.8s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Scholarly Medal</h3>
-                            <p class="text-medIce text-xs">Collected Spring 2026</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Star.png" alt="Ornamental Star" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 2.2s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Ornamental Star</h3>
-                            <p class="text-medIce text-xs">Collected Spring 2024</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Stamp.png" alt="Stamp of Flair" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 2.6s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Stamp of Flair</h3>
-                            <p class="text-medIce text-xs">Collected Spring 2025</p>
-                        </div>
-                    </div>
-
-                    <div class="relative artifact-container flex-shrink-0 flex justify-center">
-                        <img src="assets/Art_Letter.png" alt="Letter of Love" class="w-16 h-16 md:w-20 md:h-20 pixelated artifact-item" style="animation-delay: 3.0s;">
-                        <div class="artifact-tooltip bg-medNavyTeal border border-medPistachio px-3 py-2 rounded text-center min-w-max">
-                            <h3 class="text-medPistachio text-sm">Letter of Love</h3>
-                            <p class="text-medIce text-xs">Collected Fall 2024</p>
-                        </div>
-                    </div>
-
+                    
+                    <h2 id="inspector-title" class="text-xl md:text-2xl font-bold text-medWood border-b-2 border-medWood/30 pb-2 mb-2 w-full">Select an Artifact</h2>
+                    
+                    <p id="inspector-date" class="text-sm text-medOlive font-bold mb-4 h-5"></p>
+                    
+                    <p id="inspector-desc" class="text-sm md:text-base leading-relaxed text-medWood/90 text-left w-full">
+                        Hover over or tap an item in your grid to inspect its history and examine its properties.
+                    </p>
                 </div>
+
             </div>
 
+            <!-- Hidden Coin -->
             <button id="hidden-coin" onclick="collectCoin(event, this)" class="absolute text-3xl md:text-4xl opacity-0 hover:opacity-100 transition-all z-[100] drop-shadow-[0_0_15px_rgba(214,230,133,0.8)]" title="A hidden coin!">
                 🪙
             </button>
@@ -290,74 +185,79 @@
     </footer>
 
     <script>
+        // The Artifact Database
+        const artifacts = [
+            { id: "Art_Fellowship", name: "Fixture of Fellowship", date: "Collected Fall 2022", desc: "A symbol of early alliances. Forged upon entry to the Academy to represent the foundational importance of a strong, unified team." },
+            { id: "Art_Pres", name: "Presidential Gavel", date: "Collected Spring 2025", desc: "Wielded during the presidency of Alpha Delta Chi. Represents the successful orchestration of chapter events and the tactical management of a $30,000 treasury." },
+            { id: "Art_Potion", name: "Potion of Disillusionment", date: "Collected Summer 2026", desc: "A potent brew representing complex lessons learned. Grants resistance against complacency and sharpens analytical clarity during challenging transitions." },
+            { id: "Art_Cosmo", name: "Cosmonautia Telescope", date: "Collected Spring 2023", desc: "An instrument of vision marking the initial deep dive into the rigors of aerospace engineering and the mechanics of flight." },
+            { id: "Art_Crystal", name: "Symphonic Crystal", date: "Collected Summer 2026", desc: "Resonates with sweeping orchestral strings and cinematic brass. A catalyst used to enhance focus during periods of intense ideation." },
+            { id: "Art_RFID", name: "RFID Transmitter", date: "Collected Summer 2024", desc: "Forged during the Hana Technologies engineering apprenticeship. Its creation successfully streamlined legacy hardware and testing protocols." },
+            { id: "Art_Saddle", name: "Saddle of Commuting", date: "Collected Fall 2025", desc: "Acquired during the DFW Airport consulting mission. Enhances logistical routing and transforms the environmental impact of large-scale transit." },
+            { id: "Art_Shield", name: "Flying Shield & Sword", date: "Collected Spring 2026", desc: "Marks the NASA Gateways to Blue Skies mission. Represents the defense of commercial aviation via the architectural blueprints of the TWINspect drone." },
+            { id: "Art_Oar", name: "Oar of Strength", date: "Collected Fall 2025", desc: "Wielded as a walk-on athlete for the Division I rowing vanguard. A physical testament to endurance, sportsmanship, and extreme teamwork." },
+            { id: "Art_Spec", name: "Spectacles of Healing", date: "Collected Summer 2024", desc: "Grants clarity and precision. Essential for diagnosing inefficiencies and implementing 6S/Kaizen methods to streamline operational flowcharts." },
+            { id: "Art_Pen", name: "Pen of Creativity", date: "Collected Summer 2026", desc: "A boundless conduit for journaling, creative writing, and drafting narratives. Channels inspiration into the Written Realms." },
+            { id: "Art_Pencil", name: "Pencil of Arithmetic", date: "Collected Fall 2024", desc: "The foundational tool for structural analysis and finite element modeling. Required for translating abstract physics into concrete aerospace solutions." },
+            { id: "Art_Key", name: "Key to the Academy", date: "Collected Fall 2022", desc: "The ceremonial key granting access to the Capstone's resources. Symbolizes the commencement of the dual-path pursuit of engineering and analytics." },
+            { id: "Art_Medal", name: "Scholarly Medal", date: "Collected Spring 2026", desc: "Awarded upon the culmination of undergraduate aerospace engineering studies, marking a 3.80 GPA and National Merit Scholar standing." },
+            { id: "Art_Star", name: "Ornamental Star", date: "Collected Spring 2024", desc: "A guiding light through complex academic projects and early leadership challenges. Radiates persistence." },
+            { id: "Art_Stamp", name: "Stamp of Flair", date: "Collected Spring 2025", desc: "Utilized to leave a distinctive, creative mark on physical collages, multimedia endeavors, and interactive digital dashboards." },
+            { id: "Art_Letter", name: "Letter of Love", date: "Collected Fall 2024", desc: "A vital tether holding correspondence and reminding the bearer of close-knit family ties and outposts across the realm." }
+        ];
+
         function initInventory() {
+            // Setup Coins
             let coins = localStorage.getItem('agencia_coins') || 0;
             document.getElementById('coin-count').innerText = coins;
+            spawnCoin();
 
-            const spawnPoints = [
-                { top: '15%', left: '8%' },
-                { top: '85%', right: '12%' },
-                { top: '50%', left: '50%' }
-            ];
+            // Setup Grid
+            const grid = document.getElementById('grid-container');
+            
+            artifacts.forEach((artifact, index) => {
+                const slot = document.createElement('div');
+                slot.className = 'inv-slot';
+                slot.innerHTML = `<img src="assets/${artifact.id}.png" alt="${artifact.name}" class="w-10 h-10 pixelated drop-shadow-md">`;
+                
+                // Add event listeners for interactivity
+                slot.addEventListener('mouseenter', () => updateInspector(index, slot));
+                slot.addEventListener('click', () => updateInspector(index, slot));
+                
+                grid.appendChild(slot);
+            });
+
+            // Fill remaining empty slots to make the grid look full (e.g., up to 24 slots)
+            const emptySlotsNeeded = 24 - artifacts.length;
+            for(let i=0; i < emptySlotsNeeded; i++) {
+                const emptySlot = document.createElement('div');
+                emptySlot.className = 'inv-slot opacity-30 cursor-default';
+                grid.appendChild(emptySlot);
+            }
+        }
+
+        function updateInspector(index, slotElement) {
+            const artifact = artifacts[index];
+            
+            // Remove active class from all slots, add to current
+            document.querySelectorAll('.inv-slot').forEach(s => s.classList.remove('active'));
+            slotElement.classList.add('active');
+
+            // Update Inspector Data
+            document.getElementById('inspector-icon').innerHTML = `<img src="assets/${artifact.id}.png" alt="${artifact.name}" class="w-full h-full object-contain pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.4)] animate-pulse-gold">`;
+            document.getElementById('inspector-title').innerText = artifact.name;
+            document.getElementById('inspector-date').innerText = artifact.date;
+            document.getElementById('inspector-desc').innerText = artifact.desc;
+        }
+
+        function spawnCoin() {
+            const spawnPoints = [{ top: '15%', left: '8%' }, { bottom: '15%', right: '12%' }];
             const coin = document.getElementById('hidden-coin');
             const randomSpawn = spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
             if (randomSpawn.top) coin.style.top = randomSpawn.top;
             if (randomSpawn.bottom) coin.style.bottom = randomSpawn.bottom;
             if (randomSpawn.left) coin.style.left = randomSpawn.left;
             if (randomSpawn.right) coin.style.right = randomSpawn.right;
-
-            setupCarousel('shelf-1', 1);  
-            setupCarousel('shelf-2', -1); 
-        }
-
-        function setupCarousel(elementId, autoScrollDirection) {
-            const carousel = document.getElementById(elementId);
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            let isHovered = false;
-            let currentDirection = autoScrollDirection;
-
-            carousel.scrollLeft = 100;
-
-            carousel.addEventListener('mousedown', (e) => {
-                isDown = true;
-                carousel.classList.add('cursor-grabbing');
-                startX = e.pageX - carousel.offsetLeft;
-                scrollLeft = carousel.scrollLeft;
-            });
-            carousel.addEventListener('mouseleave', () => { 
-                isDown = false; 
-                isHovered = false; 
-                carousel.classList.remove('cursor-grabbing'); 
-            });
-            carousel.addEventListener('mouseup', () => { 
-                isDown = false; 
-                carousel.classList.remove('cursor-grabbing'); 
-            });
-            carousel.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - carousel.offsetLeft;
-                const walk = (x - startX) * 2; 
-                carousel.scrollLeft = scrollLeft - walk;
-            });
-
-            carousel.addEventListener('mouseenter', () => isHovered = true);
-            carousel.addEventListener('touchstart', () => isHovered = true);
-            carousel.addEventListener('touchend', () => isHovered = false);
-
-            setInterval(() => {
-                if(!isHovered && !isDown) {
-                    carousel.scrollLeft += currentDirection;
-                    
-                    if(carousel.scrollLeft >= (carousel.scrollWidth - carousel.clientWidth - 1)) {
-                        currentDirection = -1;
-                    } else if (carousel.scrollLeft <= 0) {
-                        currentDirection = 1;
-                    }
-                }
-            }, 30);
         }
 
         function collectCoin(event, element) {
@@ -387,7 +287,6 @@
                 let coins = parseInt(localStorage.getItem('agencia_coins') || 0) + 1;
                 localStorage.setItem('agencia_coins', coins);
                 document.getElementById('coin-count').innerText = coins;
-                
                 pouch.classList.add('animate-pulse-gold');
                 setTimeout(() => pouch.classList.remove('animate-pulse-gold'), 500);
             }, 720);

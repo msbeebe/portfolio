@@ -102,20 +102,24 @@
         .animate-pulse-gold { animation: goldPulse 0.5s ease-out; }
     </style>
 </head>
-<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initDashboard()">
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center">
 
     <!-- CENTERED NAME (Above Diorama) -->
     <div class="w-full text-center mt-6 md:mt-2 mb-4">
-        <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
+        <!-- Slightly scaled down for mobile to prevent overflow -->
+        <h1 class="text-3xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
     </div>
 
+    <!-- MAIN WRAPPER (Restored this missing wrapper to hold the room together) -->
+    <div class="relative w-full max-w-5xl mx-auto mt-12 md:mt-12 mb-8">
+
         <!-- Navigation Sign -->
-        <a href="sidequests.html" class="absolute -top-12 left-4 z-50 text-medIce hover:text-medPistachio text-lg transition-colors flex items-center gap-2">
+        <a href="sidequests.html" class="absolute -top-10 md:-top-12 left-4 z-50 text-medIce hover:text-medPistachio text-sm md:text-lg transition-colors flex items-center gap-2">
             ← Return to Side Quests
         </a>
 
-        <!-- THE ROOM BOX -->
-        <div class="relative w-full aspect-square md:aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
+        <!-- THE ROOM BOX (Forces 16:9 aspect ratio and scales border on mobile) -->
+        <div class="relative w-full aspect-[16/9] bg-medNavyTeal border-4 md:border-8 border-medOlive rounded-xl md:rounded-2xl box-glow overflow-hidden">
             
             <div class="moonlight-wall"></div>
             <div class="room-floor"></div>
@@ -124,17 +128,16 @@
             <!-- ROOM TITLE PLACARD & AVATAR                -->
             <!-- ========================================== -->
             
-            <!-- Room Title Placard (Bottom Left) -->
-            <div class="absolute z-50 bottom-6 left-6 bg-medNavyTeal/95 border-2 border-medIce p-3 md:p-4 rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] pointer-events-none">
-                <h1 class="text-sm md:text-lg text-medIce glow-ice tracking-widest uppercase m-0">Conservatory of Ideation</h1>
+            <!-- Room Title Placard (Bottom Left - Scaled down for mobile) -->
+            <div class="absolute z-50 bottom-2 md:bottom-6 left-2 md:left-6 bg-medNavyTeal/95 border-2 border-medIce p-1.5 md:p-4 rounded-md md:rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.8)] pointer-events-none">
+                <h1 class="text-[0.6rem] md:text-lg text-medIce glow-ice tracking-widest uppercase m-0 leading-tight">Conservatory of Ideation</h1>
             </div>
             
-            <!-- Small Avatar (Bottom Right) -->
-            <div class="absolute z-30 flex justify-center w-24 h-24 md:w-32 md:h-32 pointer-events-none" style="bottom: 4%; right: 6%;">
+            <!-- Small Avatar (Bottom Right - Scaled down for mobile) -->
+            <div class="absolute z-30 flex justify-center w-12 h-12 md:w-32 md:h-32 pointer-events-none" style="bottom: 4%; right: 6%;">
                 <img src="assets/Main_Avatar.png" alt="Main Avatar" class="w-full h-full object-contain pixelated drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)]">
             </div>
 
-            
             <!-- ========================================== -->
             <!-- THE CENTERPIECE TREE                       -->
             <!-- ========================================== -->
@@ -144,107 +147,108 @@
 
             <!-- ========================================== -->
             <!-- HANGING CRYSTALS (19 Ideas)                -->
+            <!-- Scaled from w-6 down to w-4 on mobile screens -->
             <!-- ========================================== -->
             
             <div class="hanging-crystal" style="top: 15%; left: 20%; animation-delay: 0.1s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Capstone Logs</span>
             </div>
 
             <div class="hanging-crystal" style="top: 10%; left: 36%; animation-delay: 0.8s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Physical Mail</span>
             </div>
 
             <div class="hanging-crystal" style="top: 18%; left: 45%; animation-delay: 0.3s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Analog Collaging</span>
             </div>
 
             <div class="hanging-crystal" style="top: 12%; left: 56%; animation-delay: 1.2s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Digital Collaging</span>
             </div>
 
             <div class="hanging-crystal" style="top: 20%; left: 68%; animation-delay: 0.5s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Symphonic Analysis</span>
             </div>
 
             <div class="hanging-crystal" style="top: 16%; left: 80%; animation-delay: 1.5s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Spotify Curation</span>
             </div>
 
             <div class="hanging-crystal" style="top: 32%; left: 16%; animation-delay: 0.2s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Home Terrarium</span>
             </div>
 
             <div class="hanging-crystal" style="top: 28%; left: 28%; animation-delay: 1.1s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Fantasy Drafts</span>
             </div>
 
             <div class="hanging-crystal" style="top: 36%; left: 38%; animation-delay: 0.6s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Trial by Media</span>
             </div>
 
             <div class="hanging-crystal" style="top: 26%; left: 48%; animation-delay: 1.8s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Travel Logs</span>
             </div>
 
             <div class="hanging-crystal" style="top: 34%; left: 58%; animation-delay: 0.4s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Characterization</span>
             </div>
 
             <div class="hanging-crystal" style="top: 28%; left: 74%; animation-delay: 1.4s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Fantasy Worldbuilding</span>
             </div>
 
             <div class="hanging-crystal" style="top: 45%; left: 22%; animation-delay: 0.9s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Website Expansion</span>
             </div>
 
             <div class="hanging-crystal" style="top: 48%; left: 35%; animation-delay: 1.6s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Bible Analysis</span>
             </div>
 
             <div class="hanging-crystal" style="top: 44%; left: 48%; animation-delay: 0.7s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Python Education</span>
             </div>
 
             <div class="hanging-crystal" style="top: 50%; left: 62%; animation-delay: 1.3s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Data Visualization</span>
             </div>
 
             <div class="hanging-crystal" style="top: 40%; left: 70%; animation-delay: 0.3s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Dashboard Building</span>
             </div>
 
             <div class="hanging-crystal" style="top: 58%; left: 26%; animation-delay: 1.9s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Crocheting</span>
             </div>
 
             <div class="hanging-crystal" style="top: 60%; left: 78%; animation-delay: 0.8s;">
-                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-6 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
+                <img src="assets/Art_Crystal.png" alt="Crystal" class="w-4 md:w-10 pixelated rotate-180 drop-shadow-[0_0_8px_rgba(185,214,229,0.5)]">
                 <span>Swimming</span>
             </div>
         </div>
     </div>
 
     <footer class="mt-4 pb-12 text-center w-full px-4">
-        <p class="text-medPistachio text-lg md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
+        <p class="text-medPistachio text-sm md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
             driving directive: leverage skills to become a realm force for good
         </p>
     </footer>

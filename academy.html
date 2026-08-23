@@ -96,42 +96,40 @@
             50% { transform: translateY(-8px); }
         }
         .float-anim { animation: gentleFloat 4s ease-in-out infinite; }
-
-        @keyframes goldPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 rgba(214,230,133,0); }
-            50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(214,230,133,1); }
-            100% { transform: scale(1); box-shadow: 0 0 0 rgba(214,230,133,0); }
-        }
-        .animate-pulse-gold { animation: goldPulse 0.5s ease-out; }
     </style>
 </head>
-<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center" onload="initAcademy()">
+<body class="text-medCream min-h-screen p-4 md:p-8 flex flex-col items-center">
 
    <!-- CENTERED NAME (Above Diorama) -->
     <div class="w-full text-center mt-6 md:mt-2 mb-4">
-        <h1 class="text-4xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
+        <h1 class="text-3xl md:text-5xl text-medCream glow-ice tracking-widest uppercase">Madeline Beebe</h1>
     </div>
 
-    <div class="relative w-[800px] md:w-full aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden mx-auto">        
-        <a href="index.html" class="absolute -top-12 left-4 z-50 text-medIce hover:text-medPistachio text-lg transition-colors flex items-center gap-2">
+    <!-- MAIN WRAPPER -->
+    <div class="relative w-full max-w-5xl mx-auto mt-12 md:mt-12 mb-8">        
+        
+        <a href="index.html" class="absolute -top-10 md:-top-12 left-4 z-50 text-medIce hover:text-medPistachio text-sm md:text-lg transition-colors flex items-center gap-2">
             ← Return to Study
         </a>
 
-        <!-- THE ROOM BOX -->
-        <div class="relative w-full aspect-square md:aspect-[16/9] bg-medNavyTeal border-8 border-medOlive rounded-2xl box-glow overflow-hidden">
+        <!-- THE ROOM BOX (Forces 16:9 aspect ratio and scales border on mobile) -->
+        <div class="relative w-full aspect-[16/9] bg-medNavyTeal border-4 md:border-8 border-medOlive rounded-xl md:rounded-2xl box-glow overflow-hidden">
             
             <div class="room-wall"></div>
             <div class="room-floor"></div>
 
-            <div class="absolute top-6 w-full text-center z-10 pointer-events-none">
-                <h1 class="text-3xl md:text-4xl text-medIce glow-ice tracking-widest uppercase">The Academy</h1>
-                <p class="text-medCream/70 text-sm md:text-base mt-1">Established 1831 • Tuscaloosa, AL</p>
+            <!-- Room Title (Scaled down for mobile using text-lg and text-[0.5rem]) -->
+            <div class="absolute top-2 md:top-6 w-full text-center z-10 pointer-events-none">
+                <h1 class="text-lg md:text-4xl text-medIce glow-ice tracking-widest uppercase">The Academy</h1>
+                <p class="text-medCream/70 text-[0.5rem] md:text-base mt-0 md:mt-1">Established 1831 • Tuscaloosa, AL</p>
             </div>
 
             <!-- ========================================== -->
             <!-- THE CENTERPIECE (YOUR CUSTOM DRAWING)      -->
             <!-- ========================================== -->
-            <div class="absolute z-20 flex justify-center w-[80%] md:w-[60%] pointer-events-none" style="bottom: 5%; left: 50%; transform: translateX(-50%);">
+            
+            <!-- Centerpiece (Scaled from 50% width on mobile to 60% on desktop) -->
+            <div class="absolute z-20 flex justify-center w-[50%] md:w-[60%] pointer-events-none" style="bottom: 5%; left: 50%; transform: translateX(-50%);">
                 <img src="assets/Academy_Centerpiece.png" alt="University of Alabama Citadel" class="w-full h-auto object-contain pixelated drop-shadow-[0_20px_20px_rgba(0,0,0,0.9)]">
             </div>
 
@@ -141,7 +139,7 @@
             
             <!-- Node 1: The Location/Founding -->
             <div class="info-node float-anim" style="top: 35%; left: 15%; animation-delay: 0s;">
-                <img src="assets/Crest.png" alt="Marker" class="w-16 md:w-20 pixelated drop-shadow-xl">
+                <img src="assets/Crest.png" alt="Marker" class="w-8 md:w-20 pixelated drop-shadow-xl">
                 <div class="plaque-content">
                     <h3 class="text-medPistachio font-bold mb-1 border-b border-medWood pb-1">The Southern Campus</h3>
                     <p class="text-xs text-medCream">Located in Tuscaloosa, AL. A sprawling and beautiful campus serving as the proving grounds for the realm's next generation of scholars.</p>
@@ -150,7 +148,7 @@
 
             <!-- Node 2: Engineering Hall -->
             <div class="info-node float-anim" style="top: 25%; left: 35%; animation-delay: 1s;">
-                <img src="assets/Crest.png" alt="Marker" class="-16 md:w-20 pixelated drop-shadow-xl">
+                <img src="assets/Crest.png" alt="Marker" class="w-8 md:w-20 pixelated drop-shadow-xl">
                 <div class="plaque-content">
                     <h3 class="text-medIce font-bold mb-1 border-b border-medWood pb-1">Aerospace Forges</h3>
                     <p class="text-xs text-medCream">Home to the rigorous engineering curriculum. Where the fundamentals of flight and orbital mechanics are forged.</p>
@@ -159,7 +157,7 @@
 
             <!-- Node 3: Business/Manderson -->
             <div class="info-node float-anim" style="top: 25%; right: 35%; animation-delay: 2s;">
-                <img src="assets/Crest.png" alt="Marker" class="-16 md:w-20 pixelated drop-shadow-xl">
+                <img src="assets/Crest.png" alt="Marker" class="w-8 md:w-20 pixelated drop-shadow-xl">
                 <div class="plaque-content">
                     <h3 class="text-medIce font-bold mb-1 border-b border-medWood pb-1">The Manderson Halls</h3>
                     <p class="text-xs text-medCream">The graduate stronghold of strategic business analytics, where data is transformed into actionable realm intelligence.</p>
@@ -168,7 +166,7 @@
 
             <!-- Node 4: The Crimson Tide / Athletics -->
             <div class="info-node float-anim" style="top: 35%; right: 15%; animation-delay: 0.5s;">
-                <img src="assets/Crest.png" alt="Marker" class="-16 md:w-20 pixelated drop-shadow-xl">
+                <img src="assets/Crest.png" alt="Marker" class="w-8 md:w-20 pixelated drop-shadow-xl">
                 <div class="plaque-content">
                     <h3 class="text-medRose font-bold mb-1 border-b border-medWood pb-1">The Crimson Tide</h3>
                     <p class="text-xs text-medCream">An elite athletic faction. The Academy demands intense dedication, teamwork, and resilience from its Division I rowing team.</p>
@@ -178,7 +176,7 @@
     </div>
 
     <footer class="mt-4 pb-12 text-center w-full px-4">
-        <p class="text-medPistachio text-lg md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
+        <p class="text-medPistachio text-sm md:text-2xl tracking-widest glow-pistachio uppercase leading-relaxed">
             driving directive: leverage skills to become a realm force for good
         </p>
     </footer>
